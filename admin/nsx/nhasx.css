@@ -1,0 +1,159 @@
+/* Cấu hình chung */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px 20px 20px 220px;
+}
+
+/* Tiêu đề trang */
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Bảng danh sách nhà sản xuất */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #5dddfa;
+    color: white;
+    font-weight: bold;
+}
+
+/* Nút thêm */
+#btn-add {
+    background-color: #5dddfa;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#btn-add:hover {
+    background-color: #2cfff8;
+}
+
+/* Nút hành động */
+.btn {
+    padding: 6px 12px;
+    margin: 2px;
+    border-radius: 4px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn-edit {
+    background-color: #2196F3;
+}
+
+.btn-edit:hover {
+    background-color: #1976D2;
+}
+
+.btn-delete {
+    background-color: #f44336;
+    text-decoration: none;
+}
+
+.btn-delete:hover {
+    background-color: #d32f2f;
+}
+
+/* Popup overlay */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 99;
+}
+
+/* Popup form */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    z-index: 100;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.popup h3 {
+    margin-top: 0;
+    text-align: center;
+    color: #444;
+}
+
+/* Form input */
+.popup input[type="text"],
+.popup input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+/* Nút trong popup */
+.popup button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+.popup button[type="submit"]:hover {
+    background-color: #43a047;
+}
+
+.popup .btn-close {
+    background-color: #ccc;
+    color: black;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup .btn-close:hover {
+    background-color: #bbb;
+}

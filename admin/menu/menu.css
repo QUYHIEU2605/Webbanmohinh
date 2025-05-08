@@ -1,0 +1,55 @@
+body {
+    padding-left: 200px; /* Độ rộng của navbar */
+    margin: 0;
+    position: relative; /* Ensure proper stacking context */
+}
+.navbar {
+    background-color: #203983;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    z-index: 1000; /* Increased z-index to ensure proper layering */
+    padding-top: 20px;
+}
+
+.navbar .container {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.navbar .logo {
+    font-size: 1.5em;
+    text-decoration: none;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.navbar .menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.navbar .menu li {
+    margin-bottom: 10px;
+}
+
+.navbar .menu li a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 15px;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.navbar .menu li a:hover,
+.navbar .menu li.active a {
+    background-color: #39488a;
+    border-radius: 5px;
+}

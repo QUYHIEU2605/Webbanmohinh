@@ -1,0 +1,173 @@
+/* users.css */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+}
+
+h1, h2 {
+    color: #333;
+    text-align: center;
+}
+
+.user-action {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.user-action button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.user-action button:hover {
+    background-color: #66c3f2;
+}
+
+/* Popup Form */
+.user-form-popup {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.user-form-popup-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
+    position: relative;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: scale(0.9);}
+    to {opacity: 1; transform: scale(1);}
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    color: #888;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: #000;
+}
+
+.user-form-popup-content form div {
+    margin-bottom: 15px;
+}
+
+.user-form-popup-content label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.user-form-popup-content input,
+.user-form-popup-content select,
+.user-form-popup-content textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.user-form-popup-content button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    font-size: 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.user-form-popup-content button:hover {
+    background-color: #2980b9;
+}
+
+/* Danh sách người dùng */
+.user-list {
+    margin-top: 40px;
+    overflow-x: auto;
+}
+
+table {
+    margin: auto;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: #5dddfa;
+    color: white;
+}
+
+tr:hover {
+    background-color: #fdf2e9;
+}
+
+td button {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 6px;
+}
+
+td button:hover {
+    background-color: #1e8449;
+}
+
+td a {
+    color: white;
+    background-color: #e74c3c;
+    padding: 6px 12px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+td a:hover {
+    background-color: #c0392b;
+}

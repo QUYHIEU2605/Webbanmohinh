@@ -1,0 +1,108 @@
+/* admin_magiamgiauser.css */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f8fb;
+    margin: 0;
+    padding: 20px 20px 20px 220px;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: #1a73e8;
+    margin-bottom: 40px;
+}
+
+.user-lists-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.user-list {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    padding: 20px;
+    flex: 1 1 45%;
+    min-width: 300px;
+}
+
+.user-list h2 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #333;
+    border-left: 5px solid #1a73e8;
+    padding-left: 10px;
+}
+
+.user-item {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.user-item input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+button[type='submit'] {
+    background-color: #1a73e8;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 15px;
+    margin-top: 15px;
+}
+
+button[type='submit']:hover {
+    background-color: #125dbb;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+table th,
+table td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #e8f0fe;
+    color: #1a1a1a;
+    font-weight: bold;
+}
+
+table tr:hover {
+    background-color: #f1f5fb;
+}
+
+.btn-delete {
+    background-color: #e53935;
+    color: #fff;
+    padding: 6px 12px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-delete:hover {
+    background-color: #c62828;
+}
+
+@media screen and (max-width: 768px) {
+    .user-lists-container {
+        flex-direction: column;
+    }
+}

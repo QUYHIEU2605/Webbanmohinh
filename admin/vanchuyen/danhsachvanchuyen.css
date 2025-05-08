@@ -1,0 +1,163 @@
+/* Tổng thể trang */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
+    padding: 20px 20px 20px 220px;
+    margin: 0;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Bảng danh sách */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+th, td {
+    text-align: center;
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #5dddfa;
+    color: white;
+}
+
+/* Nút Thêm */
+#addShippingButton {
+    display: block;
+    margin: 10px auto 20px auto;
+    padding: 10px 20px;
+    background-color: #5dddfa;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#addShippingButton:hover {
+    background-color: #4b95f6;
+}
+
+/* Nút trong bảng */
+.btn-update,
+.btn-delete {
+    padding: 6px 12px;
+    margin: 2px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: white;
+}
+
+.btn-update {
+    background-color: #2196F3;
+}
+
+.btn-update:hover {
+    background-color: #1976D2;
+}
+
+.btn-delete {
+    background-color: #f44336;
+    text-decoration: none;
+}
+
+.btn-delete:hover {
+    background-color: #d32f2f;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    padding-top: 80px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #888;
+    width: 40%;
+    border-radius: 10px;
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+
+/* Form input */
+input[type="text"],
+input[type="number"] {
+    width: 95%;
+    padding: 10px;
+    margin-top: 4px;
+    margin-bottom: 16px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+/* Nút trong form */
+input[type="submit"],
+#cancelAddButton,
+#cancelEditButton {
+    padding: 10px 18px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+#cancelAddButton,
+#cancelEditButton {
+    background-color: #ccc;
+    color: black;
+}
+
+#cancelAddButton:hover,
+#cancelEditButton:hover {
+    background-color: #bbb;
+}

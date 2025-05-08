@@ -1,0 +1,150 @@
+/* qlymgg.css */
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+    padding: 20px 20px 20px 220px;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+th, td {
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+th {
+    background-color: #5dddfa;
+    color: #fff;
+}
+
+td.description-cell {
+    max-width: 300px;
+    word-wrap: break-word;
+}
+
+/* Nút Thêm */
+button,
+input[type="submit"],
+button[type="button"] {
+    background-color: #3498db;
+    color: white;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px 0;
+    transition: background-color 0.3s ease;
+}
+
+button:hover,
+input[type="submit"]:hover,
+button[type="button"]:hover {
+    background-color: #2980b9;
+}
+
+/* Nút Xoá */
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+    padding: 6px 10px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+.btn-delete:hover {
+    background-color: #c0392b;
+}
+
+/* Nút Sửa */
+.btn-edit {
+    background-color: #f39c12;
+    color: white;
+    padding: 6px 10px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-left: 5px;
+    transition: background-color 0.3s;
+}
+.btn-edit:hover {
+    background-color: #d68910;
+}
+
+/* Nút Xem */
+.btn-view {
+    background-color: #2ecc71;
+    color: white;
+    padding: 6px 10px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-left: 5px;
+    transition: background-color 0.3s;
+}
+.btn-view:hover {
+    background-color: #27ae60;
+}
+
+/* Popup style */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.popup-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.close-popup {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+}
+.close-popup:hover {
+    color: #333;
+}
+
+/* Phân trang */
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    padding: 8px 12px;
+    margin: 0 4px;
+    text-decoration: none;
+    background-color: #ddd;
+    color: #333;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #bbb;
+}
+
+.pagination .active {
+    background-color: #5dddfa;
+    color: white;
+}

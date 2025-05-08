@@ -1,0 +1,226 @@
+/* --- order_management.css --- */
+
+/* --- Global Styles & Variables --- */
+:root {
+    /* ... (các biến màu giữ nguyên) ... */
+    --primary-orange: #5dddfa;
+    --secondary-orange: #17f9f9;
+    --light-yellow: #b3ffe1;
+    --text-dark: #333333;
+    --text-light: #555555;
+    --border-color: #dee2e6;
+    --background-light: #ffffff;
+    --background-very-light: #f8f9fa;
+    --success-green: #28a745;
+    --cancel-red: #dc3545;
+    --pending-blue: #007bff;
+    --shadow-color: rgba(0, 0, 0, 0.075);
+
+    /* == THÊM BIẾN CHO CHIỀU CAO MENU == */
+    /* ** QUAN TRỌNG: Thay đổi 60px thành chiều cao thực tế của menu admin của bạn ** */
+    --admin-menu-height: 60px;
+    /* ================================= */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-very-light);
+    color: var(--text-dark);
+    margin: 0;
+    /* == THÊM PADDING-TOP CHO BODY == */
+    padding-top: var(--admin-menu-height); /* Tạo khoảng trống cho menu cố định */
+    /* ================================ */
+    line-height: 1.5;
+    box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước tổng thể */
+}
+
+/* Container chính */
+.main-content {
+    padding: 25px;
+    max-width: 1400px;
+    margin: 0 auto; /* Bỏ margin-top vì body đã có padding-top */
+                    /* Giữ margin auto để căn giữa ngang */
+    box-sizing: border-box; /* Nên thêm để tính toán padding chính xác */
+}
+
+h1 {
+    color: var(--primary-orange);
+    text-align: center;
+    margin-top: 0; /* H1 nằm trong .main-content nên không cần margin-top nữa */
+    margin-bottom: 30px;
+    font-size: 2em;
+    font-weight: 600;
+}
+
+/* --- Search Container --- */
+.search-container {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* ... (Phần còn lại của CSS giữ nguyên) ... */
+
+.search-container form {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.search-input {
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    min-width: 280px;
+    font-size: 1em;
+}
+.search-input:focus {
+    outline: none;
+    border-color: var(--secondary-orange);
+    box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.15);
+}
+
+.search-button,
+.clear-search-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.search-button {
+    background-color: var(--primary-orange);
+}
+.search-button:hover {
+    background-color: var(--secondary-orange);
+}
+
+.clear-search-button {
+    background-color: var(--text-light);
+}
+.clear-search-button:hover {
+    background-color: var(--text-dark);
+}
+
+
+/* --- Table Styles --- */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.order-table {
+    width: 100%;
+    min-width: 1200px;
+    border-collapse: collapse;
+    background: var(--background-light);
+    box-shadow: 0 2px 10px var(--shadow-color);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 0.9em;
+    border: 1px solid var(--border-color);
+}
+
+.order-table thead {
+    background-color: var(--primary-orange);
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    letter-spacing: 0.5px;
+}
+
+.order-table th,
+.order-table td {
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    text-align: left;
+    vertical-align: middle;
+}
+
+/* Căn giữa một số cột nếu muốn */
+.order-table th:first-child, .order-table td:first-child, /* Mã Đơn */
+.order-table th:nth-child(9), .order-table td:nth-child(9), /* Tổng tiền */
+.order-table th:nth-child(10), .order-table td:nth-child(10), /* Trạng thái */
+.order-table th:last-child, .order-table td:last-child /* Hành động */ {
+    text-align: center;
+}
+
+.order-table tbody tr:nth-child(even) {
+    background-color: #fdfdfe;
+}
+
+.order-table tbody tr:hover {
+    background-color: var(--light-yellow);
+}
+
+.no-orders td {
+    text-align: center;
+    padding: 30px;
+    font-style: italic;
+    color: var(--text-light);
+}
+
+/* --- Product Details in Table --- */
+.product-details-cell { min-width: 200px; }
+.product-item { display: flex; align-items: center; margin-bottom: 8px; }
+.product-item:last-child { margin-bottom: 0; }
+.product-img { width: 50px; height: 50px; border-radius: 5px; object-fit: cover; margin-right: 10px; border: 1px solid var(--border-color); flex-shrink: 0; }
+.product-name { margin: 0; font-size: 0.95em; line-height: 1.3; }
+.no-product { font-style: italic; color: var(--text-light); font-size: 0.9em; }
+
+/* --- Price --- */
+.price { font-weight: 600; white-space: nowrap; }
+
+/* --- Status Badge --- */
+.status { padding: 4px 10px; border-radius: 15px; font-size: 0.85em; font-weight: 600; color: rgb(0, 0, 0); white-space: nowrap; display: inline-block; }
+.status-cho-xac-nhan { background-color: var(--pending-blue); }
+.status-da-xac-nhan { background-color: var(--success-green); }
+.status-dang-giao-hang { background-color: var(--secondary-orange); }
+.status-da-giao { background-color: var(--text-light); }
+.status-da-huy { background-color: var(--cancel-red); }
+
+/* --- Action Buttons --- */
+.action-cell { white-space: nowrap; }
+.action-form { margin: 0; }
+.action-button { padding: 6px 12px; border: none; border-radius: 4px; color: white; cursor: pointer; font-size: 0.85em; font-weight: 500; transition: opacity 0.3s ease; min-width: 80px; }
+.action-button:hover { opacity: 0.85; }
+.btn-confirm { background-color: var(--success-green); }
+.btn-cancel { background-color: var(--cancel-red); }
+
+/* --- Pagination --- */
+.pagination-container { margin-top: 30px; text-align: center; }
+.page-link { display: inline-block; padding: 8px 14px; margin: 0 3px; background-color: var(--primary-orange); color: white; text-decoration: none; border-radius: 4px; font-size: 0.9em; transition: background-color 0.3s ease; }
+.page-link:hover, .page-link.prev:hover, .page-link.next:hover { background-color: var(--secondary-orange); }
+.page-link.current-page { background-color: var(--secondary-orange); font-weight: bold; cursor: default; }
+.page-link.ellipsis { background-color: transparent; color: var(--text-light); padding: 8px 5px; cursor: default; }
+.page-link.ellipsis:hover { background-color: transparent; }
+.page-link.prev, .page-link.next { font-weight: bold; }
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 15px;
+    }
+    h1 { font-size: 1.6em; margin-bottom: 20px; }
+    .search-container form { flex-direction: column; align-items: stretch; }
+    .search-input { min-width: auto; width: 100%; box-sizing: border-box; }
+    .search-button, .clear-search-button { width: 100%; box-sizing: border-box; }
+    .order-table th, .order-table td { padding: 10px 8px; font-size: 0.85em; }
+    .product-img { width: 40px; height: 40px; margin-right: 8px; }
+    .pagination-container { margin-top: 20px; }
+    .page-link { padding: 6px 10px; font-size: 0.85em; }
+}
+
+@media (max-width: 480px) {
+     .order-table th, .order-table td { font-size: 0.8em; }
+     .action-button { padding: 5px 8px; font-size: 0.8em; min-width: 65px; }
+     .page-link { padding: 5px 8px; }
+}

@@ -1,0 +1,106 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 20px 20px 20px 220px; /* Adjusted left padding to avoid overlap with menu */
+    color: #333;
+}
+
+/* Tùy chọn lọc báo cáo */
+.report-options {
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.report-options select,
+.report-options input {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.report-options select:focus,
+.report-options input:focus {
+    outline: none;
+    border-color: #ffc107;
+    box-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+}
+
+/* Container bảng báo cáo */
+.report-container {
+    width: 100%;
+    overflow-x: auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+}
+
+/* Bảng */
+.report-container table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+}
+
+.report-container th,
+.report-container td {
+    border: 1px solid #e0e0e0;
+    padding: 10px 12px;
+    text-align: left;
+}
+
+.report-container th {
+    background-color: #ffc107;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.report-container tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.report-container tr:hover {
+    background-color: #fff3cd;
+    transition: 0.2s;
+}
+
+/* Footer tổng kết */
+.report-container tfoot td {
+    font-weight: bold;
+    text-align: right;
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+/* Danh sách sản phẩm nổi bật */
+.top-products-list {
+    padding-left: 20px;
+    margin-top: 30px;
+    background-color: #fffdf4;
+    border-left: 5px solid #ffc107;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+.report-options button {
+    padding: 8px 16px;
+    background-color: #5dddfa;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.report-options button:hover {
+    background-color: #3495f0;
+}

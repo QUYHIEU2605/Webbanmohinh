@@ -1,0 +1,321 @@
+/* Toàn trang */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0px;
+    background-color: #f1f3f5;
+    color: #212529;
+}
+
+/* Tiêu đề */
+h1 {
+    text-align: center;
+    color: #343a40;
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+/* Container chính */
+#cart-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Mỗi sản phẩm */
+.cart-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 20px;
+}
+
+/* Ảnh sản phẩm */
+.cart-item-image-container {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #f8f9fa;
+    flex-shrink: 0;
+}
+
+.cart-item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Thông tin sản phẩm */
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-info h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #212529;
+}
+
+.cart-item-price {
+    margin: 8px 0;
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+.original-price {
+    text-decoration: line-through;
+    margin-right: 8px;
+}
+
+.discounted-price {
+    color: #e63946;
+    font-weight: bold;
+}
+
+/* Điều chỉnh số lượng */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.quantity-control button {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.quantity-control button:hover {
+    background-color: #0b5ed7;
+}
+
+.quantity-control input {
+    width: 45px;
+    text-align: center;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 6px;
+    font-size: 1rem;
+}
+
+/* Nút xóa */
+.btn-remove-item {
+    background-color: #dc3545;
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-remove-item:hover {
+    background-color: #b02a37;
+}
+
+/* Tổng tiền và nút */
+.cart-summary {
+    text-align: right;
+    background-color: #ffffff;
+    padding: 25px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.cart-summary p {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #212529;
+}
+
+/* Nút chung */
+.cart-summary button,
+.cart-summary a {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Nút xem mã giảm giá */
+.cart-summary .btn-discount {
+    background: linear-gradient(to right, #28a745, #43d17a);
+    color: white;
+}
+
+.cart-summary .btn-discount:hover {
+    background: linear-gradient(to right, #218838, #34c06f);
+    box-shadow: 0 6px 16px rgba(40, 167, 69, 0.25);
+}
+
+/* Nút thanh toán */
+.cart-summary .btn-checkout {
+    background: linear-gradient(to right, #007bff, #00c6ff);
+    color: white;
+}
+
+.cart-summary .btn-checkout:hover {
+    background: linear-gradient(to right, #0069d9, #00bfff);
+    box-shadow: 0 6px 16px rgba(0, 123, 255, 0.25);
+}
+/* Hiệu ứng mượt cho cả 2 nút */
+.cart-summary button,
+.cart-summary a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.35s ease;
+    margin-left: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: scale(1);
+}
+
+/* Hover zoom + bóng nổi */
+.cart-summary button:hover,
+.cart-summary a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Nút "Xem mã giảm giá" */
+.cart-summary .btn-discount {
+    background: linear-gradient(to right, #28a745, #43d17a);
+    color: white;
+}
+
+.cart-summary .btn-discount:hover {
+    background: linear-gradient(to right, #1f8c3e, #36b76a);
+}
+
+/* Nút "Thanh toán" */
+.cart-summary .btn-checkout {
+    background: linear-gradient(to right, #007bff, #00c6ff);
+    color: white;
+}
+
+.cart-summary .btn-checkout:hover {
+    background: linear-gradient(to right, #0062cc, #00b5f1);
+}
+
+/* Icon hiệu ứng nếu dùng thêm */
+.cart-summary button i,
+.cart-summary a i {
+    transition: transform 0.3s ease;
+}
+
+/* Xoay nhẹ icon khi hover */
+.cart-summary button:hover i,
+.cart-summary a:hover i {
+    transform: translateX(5px) rotate(5deg);
+}
+
+/* Popup mã giảm giá */
+.discount-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.discount-popup-content {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.discount-popup h2 {
+    margin-top: 0;
+    color: #212529;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.discount-list {
+    list-style: none;
+    padding: 0;
+}
+
+.discount-list li {
+    border-bottom: 1px solid #dee2e6;
+    padding: 10px 0;
+}
+
+.discount-list li:last-child {
+    border-bottom: none;
+}
+
+.discount-code {
+    color: #198754;
+    font-weight: bold;
+}
+
+.discount-description {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+.btn-copy {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.btn-copy:hover {
+    background-color: #0b5ed7;
+}
+
+.close-popup {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    font-size: 1.5rem;
+    color: #6c757d;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-popup:hover {
+    color: #000;
+}

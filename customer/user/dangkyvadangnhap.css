@@ -1,0 +1,96 @@
+/* Giao diện trang đăng ký người dùng - tông màu vàng hiện đại */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fffdf5;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: #d35400;
+    margin: 40px 0 20px;
+}
+
+form[name="form_dangnhapvsdangky"] {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px 25px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+form[name="form_dangnhapvsdangky"] div {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #444;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #fff;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #f1c40f;
+    outline: none;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+button[type="submit"] {
+
+    padding: 12px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #e67e22;
+}
+
+/* Thông báo lỗi */
+p[style*="color: red"] {
+    text-align: center;
+    background-color: #fdecea;
+    color: #e74c3c;
+    padding: 10px;
+    margin: 0 auto 20px;
+    border-radius: 5px;
+    max-width: 500px;
+    border-left: 5px solid #e74c3c;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+    form[name="form_dangnhapvsdangky"] {
+        padding: 20px;
+        margin: 20px;
+    }
+}

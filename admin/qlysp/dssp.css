@@ -1,0 +1,350 @@
+/* --- dssp.css --- */
+
+/* --- Kế thừa biến và CSS cơ bản từ menu --- */
+@import url('../menu/menu.css'); /* Import CSS của menu nếu muốn dùng biến */
+
+/* Hoặc định nghĩa lại các biến cần thiết */
+:root {
+    --primary-orange: #3498db;
+    --secondary-orange: #34fcff;
+    --light-yellow: #FFF8DC;
+    --text-dark: #333333;
+    --text-light: #555555;
+    --border-color: #dee2e6;
+    --background-light: #ffffff;
+    --background-very-light: #f8f9fa;
+    --success-green: #28a745;
+    --info-blue: #17a2b8; /* Màu cho nút sửa */
+    --danger-red: #dc3545;  /* Màu cho nút xóa */
+    --shadow-color: rgba(0, 0, 0, 0.075);
+    /* Chiều cao menu kế thừa từ menu.css hoặc định nghĩa lại */
+    /* --admin-menu-height: 60px; */
+}
+
+body {
+    /* Đã có padding-top từ menu.css nếu import */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-very-light);
+    color: var(--text-dark);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Container chính */
+.main-content {
+    padding: 25px;
+    max-width: 1600px; /* Tăng max-width cho bảng nhiều cột */
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+h2 {
+    color: var(--primary-orange);
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+/* Thanh chứa nút hành động (Thêm SP) */
+.action-bar {
+    text-align: right; /* Đẩy nút sang phải */
+    margin-bottom: 20px;
+}
+
+/* --- Nút bấm chung --- */
+.btn {
+    display: inline-block;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    text-align: center;
+    vertical-align: middle; /* Căn giữa text nếu nút cao hơn */
+    margin-left: 5px; /* Khoảng cách giữa các nút */
+}
+.btn:hover {
+    opacity: 0.85;
+}
+
+/* Nút Thêm */
+.btn-add {
+    background-color: var(--primary-orange);
+}
+.btn-add:hover {
+    background-color: var(--secondary-orange);
+}
+
+/* Nút Sửa */
+.btn-update {
+    background-color: var(--info-blue); /* Màu xanh dương */
+}
+.btn-update:hover {
+    background-color: #138496; /* Xanh dương đậm hơn */
+}
+
+/* Nút Xóa */
+.btn-delete {
+    background-color: var(--danger-red); /* Màu đỏ */
+}
+.btn-delete:hover {
+    background-color: #c82333; /* Đỏ đậm hơn */
+}
+
+
+/* --- Table Styles --- */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.product-table {
+    width: 100%;
+    min-width: 1400px; /* Đặt chiều rộng tối thiểu lớn hơn cho nhiều cột */
+    border-collapse: collapse;
+    background: var(--background-light);
+    box-shadow: 0 2px 10px var(--shadow-color);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 0.88em; /* Giảm font size nhẹ */
+    border: 1px solid var(--border-color);
+}
+
+.product-table thead {
+    background-color: var(--menu-bg, #5dddfa); /* Dùng màu nền menu */
+    color: var(--text-light, white);
+    text-transform: uppercase;
+    font-size: 0.85em;
+    letter-spacing: 0.5px;
+}
+
+.product-table th,
+.product-table td {
+    padding: 10px 12px; /* Điều chỉnh padding */
+    border: 1px solid var(--border-color);
+    text-align: left;
+    vertical-align: middle;
+}
+
+/* Căn giữa một số cột */
+.product-table th:first-child, .product-table td:first-child, /* ID */
+.product-table th:nth-child(2), .product-table td:nth-child(2), /* Ảnh */
+.product-table th:nth-child(7), .product-table td:nth-child(7), /* SL */
+.product-table th:last-child, .product-table td:last-child /* Hành động */ {
+    text-align: center;
+}
+
+.product-table tbody tr:nth-child(even) {
+    background-color: #fdfdfe;
+}
+
+.product-table tbody tr:hover {
+    background-color: var(--light-yellow);
+}
+
+.no-products td {
+    text-align: center;
+    padding: 30px;
+    font-style: italic;
+    color: var(--text-light);
+    font-size: 1em;
+}
+
+/* --- Miêu tả --- */
+.description-cell {
+    max-width: 250px; /* Giới hạn chiều rộng */
+    white-space: nowrap; /* Ngăn xuống dòng */
+    overflow: hidden; /* Ẩn phần thừa */
+    text-overflow: ellipsis; /* Thêm dấu ... */
+    cursor: help; /* Đổi con trỏ để báo có tooltip */
+}
+
+/* --- Giá tiền --- */
+.price {
+    font-weight: 500;
+    white-space: nowrap;
+    text-align: right; /* Căn phải giá tiền */
+}
+.product-table th:nth-child(8), /* Th Giá bán */
+.product-table th:nth-child(9), /* Th Giá nhập */
+.product-table th:nth-child(10) /* Th Giảm giá */ {
+    text-align: right;
+}
+
+
+/* --- Ảnh sản phẩm trong bảng --- */
+.image-cell {
+    width: 80px; /* Cố định chiều rộng cột ảnh */
+    padding: 5px !important; /* Giảm padding cho ô ảnh */
+}
+
+.image-container {
+    position: relative; /* Để định vị nút nav */
+    width: 60px; /* Kích thước container = kích thước ảnh */
+    height: 60px;
+    margin: auto; /* Căn giữa container trong ô */
+    cursor: pointer; /* Báo hiệu có thể click */
+    overflow: hidden; /* Đảm bảo nút nav không tràn ra ngoài */
+}
+
+.product-thumbnail {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Zoom ảnh vừa khung */
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease;
+}
+.image-container:hover .product-thumbnail {
+    transform: scale(1.05); /* Phóng to nhẹ khi hover container */
+}
+
+
+/* Nút điều hướng ảnh */
+.image-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between; /* Đẩy 2 nút ra 2 bên */
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3); /* Nền mờ khi hover */
+    opacity: 0; /* Ẩn ban đầu */
+    transition: opacity 0.3s ease;
+    pointer-events: none; /* Không bắt sự kiện click lên lớp nền */
+}
+
+.image-container:hover .image-nav {
+    opacity: 1; /* Hiện khi hover container */
+    pointer-events: auto; /* Cho phép click nút bên trong */
+}
+
+.prev-image,
+.next-image {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 3px 6px; /* Nút nhỏ */
+    cursor: pointer;
+    font-size: 1.1em;
+    line-height: 1;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+    z-index: 2; /* Nằm trên ảnh */
+}
+.prev-image { margin-left: 2px; }
+.next-image { margin-right: 2px; }
+
+.prev-image:hover,
+.next-image:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* --- Action Cell --- */
+.action-cell {
+    white-space: nowrap;
+    width: 120px; /* Cố định chiều rộng cột hành động */
+}
+.action-cell .btn {
+    margin-bottom: 4px; /* Khoảng cách nếu nút xuống dòng */
+    display: inline-block; /* Đảm bảo margin hoạt động */
+    width: 45px; /* Làm nút nhỏ hơn */
+    padding: 5px 0; /* Điều chỉnh padding */
+    font-size: 0.8em;
+}
+.action-cell .btn:last-child {
+    margin-left: 4px; /* Khoảng cách ngang nhỏ */
+}
+
+
+/* --- Image Popup --- */
+.image-popup {
+    display: none; /* Ẩn ban đầu */
+    position: fixed;
+    z-index: 1050; /* Cao hơn navbar */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Cho phép cuộn nếu ảnh quá lớn */
+    background-color: rgba(0, 0, 0, 0.85); /* Nền đen mờ đậm hơn */
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Khoảng đệm an toàn */
+    box-sizing: border-box;
+}
+
+.image-popup-content {
+    position: relative;
+    margin: auto;
+    display: block;
+    max-width: 90vw; /* Tối đa 90% chiều rộng viewport */
+    max-height: 85vh; /* Tối đa 85% chiều cao viewport */
+}
+
+#popupImage {
+    display: block; /* Loại bỏ khoảng trắng dưới ảnh */
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 5px; /* Bo góc nhẹ ảnh popup */
+    margin: auto; /* Căn giữa ảnh nếu container lớn hơn */
+}
+
+.close-popup {
+    position: absolute;
+    top: -10px; /* Hơi lệch ra ngoài */
+    right: -5px;
+    color: #fff;
+    background-color: rgba(0,0,0,0.5); /* Nền mờ cho nút */
+    font-size: 35px;
+    font-weight: bold;
+    line-height: 1;
+    padding: 0px 8px 4px 8px; /* Padding để nút dễ click hơn */
+    border-radius: 50%; /* Bo tròn nút */
+    cursor: pointer;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.close-popup:hover,
+.close-popup:focus {
+    color: #bbb;
+    background-color: rgba(255,0,0,0.7); /* Đổi nền đỏ khi hover */
+    text-decoration: none;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 992px) {
+    .product-table {
+        min-width: 1000px; /* Giảm min-width */
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 15px;
+    }
+    h2 { font-size: 1.5em; margin-bottom: 15px; }
+    .action-bar { margin-bottom: 15px; }
+    .btn { padding: 6px 12px; font-size: 0.85em; }
+    .product-table { min-width: 800px; font-size: 0.85em; }
+    .product-table th, .product-table td { padding: 8px 10px; }
+    .action-cell { width: auto; } /* Cho phép cột hành động co giãn */
+    .action-cell .btn { width: auto; padding: 5px 8px; } /* Trở lại kích thước tự động */
+}
+
+@media (max-width: 576px) {
+    .product-table { min-width: 600px; }
+    /* Cân nhắc ẩn bớt cột không quan trọng trên mobile nếu cần */
+    /* .product-table th:nth-child(9), .product-table td:nth-child(9) { display: none; } */ /* Ví dụ ẩn giá nhập */
+}
