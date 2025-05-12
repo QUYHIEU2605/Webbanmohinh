@@ -108,6 +108,40 @@ if ($result->num_rows > 0) {
         $products[] = $row;
     }
 }
+$itemsPerPage = 9;
+
+// Lấy trang hiện tại từ URL, mặc định là trang 1
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$page = max($page, 1); // Đảm bảo trang không nhỏ hơn 1
+
+// Tính toán offset
+$offset = ($page - 1) * $itemsPerPage;
+
+// Đếm tổng số sản phẩm (có áp dụng bộ lọc và tìm kiếm)
+$totalItemsQuery = "SELECT COUNT(*) AS total 
+                    FROM sanpham sp
+                    LEFT JOIN nhasanxuat nsx ON sp.masx = nsx.masx 
+                    $whereQuery";
+$totalItemsResult = $conn->query($totalItemsQuery);
+$totalItems = $totalItemsResult->fetch_assoc()['total'];
+$totalPages = ceil($totalItems / $itemsPerPage);
+
+// Truy vấn sản phẩm, join với bảng nhà sản xuất
+$sql = "SELECT sp.*, nsx.tenhang 
+        FROM sanpham sp
+        LEFT JOIN nhasanxuat nsx ON sp.masx = nsx.masx 
+        $whereQuery
+        $orderBy
+        LIMIT $itemsPerPage OFFSET $offset";
+$result = $conn->query($sql);
+
+$products = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $products[] = $row;
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -117,13 +151,13 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="sanpham.css?v=<?php echo time(); ?>">
-    <title>Danh Sách Sản Phẩm</title>
+    <title>Danh sách sản phẩm</title>
 </head>
 
 <body>
     <div class='main-content-container'>
         <div class="sidebar">
-            <h3>Tìm Kiếm Sản Phẩm</h3>
+            <h3>Tìm kiếm sản phẩm</h3>
             <form method="GET">
                 <input type='hidden' name='search' value='<?= htmlspecialchars($search) ?>'>
 
@@ -143,7 +177,7 @@ if ($result->num_rows > 0) {
                 </select>
 
                 <!-- Phân loại -->
-                <label for="category">Phân Loại</label>
+                <label for="category">Phân loại</label>
                 <select name="category" id="category">
                     <option value="">Tất cả</option>
                     <?php
@@ -157,7 +191,7 @@ if ($result->num_rows > 0) {
                 </select>
 
                 <!-- Tình trạng-->
-                <label for="status">Tình Trạng</label>
+                <label for="status">Tình trạng</label>
                 <select name="status" id="status">
                     <option value="">Tất cả</option>
                     <?php
@@ -173,7 +207,7 @@ if ($result->num_rows > 0) {
                 <!-- Giá -->
                 <h3>Lọc Giá</h3>
                 <div class="price-range-container">
-                    <label for="price_range">Khoảng Giá:</label>
+                    <label for="price_range">Khoảng giá:</label>
                     <div class="slider-range">
                         <div id="slider-range"></div>
                     </div>
@@ -183,7 +217,7 @@ if ($result->num_rows > 0) {
                         <input type="number" name="price_to" id="price_to" readonly>
                     </div>
                 </div>
-                <button type="submit">Tìm Kiếm</button>
+                <button type="submit">Tìm kiếm</button>
             </form>
             <h3>Sắp Xếp</h3>
             <form method="GET">
@@ -261,7 +295,21 @@ if ($result->num_rows > 0) {
             <?php endif; ?>
         </div>
     </div>
+    <div class="pagination">
+        <?php if ($page > 1): ?>
+        <a href="?<?= http_build_query(array_merge($_GET, ['page' => $page - 1])) ?>" class="prev-page">❮ Trang
+            trước</a>
+        <?php endif; ?>
 
+        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+        <a href="?<?= http_build_query(array_merge($_GET, ['page' => $i])) ?>"
+            class="<?= $i == $page ? 'active' : '' ?>"><?= $i ?></a>
+        <?php endfor; ?>
+
+        <?php if ($page < $totalPages): ?>
+        <a href="?<?= http_build_query(array_merge($_GET, ['page' => $page + 1])) ?>" class="next-page">Trang sau ❯</a>
+        <?php endif; ?>
+    </div>
 </body>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>

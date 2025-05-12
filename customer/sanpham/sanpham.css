@@ -168,4 +168,29 @@ body {
     gap: 10px;
     margin-top: 10px;
 }
+.pagination {
+    margin: 20px 0;
+    text-align: center;
+}
 
+.pagination a {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #f1c40f;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a.active {
+    background-color: #f1c40f;
+    color: #fff;
+    border-color: #f1c40f;
+}
+
+.pagination a:hover {
+    background-color: #f1c40f;
+    color: #fff;
+}

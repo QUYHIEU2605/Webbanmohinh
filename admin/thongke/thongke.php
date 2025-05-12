@@ -116,21 +116,21 @@ $profit = $totalRevenue - $totalCost;
 
 <body>
     <div class="report-container">
-        <h1>Báo Cáo Doanh Thu</h1>
+        <h1>Báo cáo doanh thu</h1>
 
         <div class="report-options">
             <form method="get">
-                <label for="report_type">Loại Báo Cáo:</label>
+                <label for="report_type">Loại báo cáo:</label>
                 <select name="type" id="report_type">
-                    <option value="daily" <?php if ($reportType == 'daily') echo 'selected'; ?>>Theo Ngày</option>
-                    <option value="monthly" <?php if ($reportType == 'monthly') echo 'selected'; ?>>Theo Tháng</option>
-                    <option value="yearly" <?php if ($reportType == 'yearly') echo 'selected'; ?>>Theo Năm</option>
+                    <option value="daily" <?php if ($reportType == 'daily') echo 'selected'; ?>>Theo ngày</option>
+                    <option value="monthly" <?php if ($reportType == 'monthly') echo 'selected'; ?>>Theo tháng</option>
+                    <option value="yearly" <?php if ($reportType == 'yearly') echo 'selected'; ?>>Theo năm</option>
                 </select>
                 <label for="start_date">Ngày bắt đầu:</label>
                 <input type="date" name="start_date" id="start_date" value="<?= htmlspecialchars($startDate) ?>">
                 <label for="end_date">Ngày kết thúc:</label>
                 <input type="date" name="end_date" id="end_date" value="<?= htmlspecialchars($endDate) ?>">
-                <button type="submit">Xem Báo Cáo</button>
+                <button type="submit">Xem báo cáo</button>
             </form>
         </div>
 
@@ -142,7 +142,7 @@ $profit = $totalRevenue - $totalCost;
                 <thead>
                     <tr>
                         <th>Ngày</th>
-                        <th>Doanh Thu</th>
+                        <th>Doanh thu</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -166,12 +166,12 @@ $profit = $totalRevenue - $totalCost;
                 </tfoot>
             </table>
             <?php elseif ($reportType === 'monthly'): ?>
-            <h2>Doanh Thu Theo Tháng (<?= htmlspecialchars($startDate) ?> - <?= htmlspecialchars($endDate) ?>)</h2>
+            <h2>Doanh thu theo tháng (<?= htmlspecialchars($startDate) ?> - <?= htmlspecialchars($endDate) ?>)</h2>
             <table>
                 <thead>
                     <tr>
                         <th>Tháng</th>
-                        <th>Doanh Thu</th>
+                        <th>Doanh thu</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -194,12 +194,12 @@ $profit = $totalRevenue - $totalCost;
                 </tfoot>
             </table>
             <?php elseif($reportType === 'yearly'): ?>
-            <h2>Doanh Thu Theo Năm (<?= htmlspecialchars($startDate) ?> - <?= htmlspecialchars($endDate) ?>)</h2>
+            <h2>Doanh thu theo năm (<?= htmlspecialchars($startDate) ?> - <?= htmlspecialchars($endDate) ?>)</h2>
             <table>
                 <thead>
                     <tr>
                         <th>Năm</th>
-                        <th>Doanh Thu</th>
+                        <th>Doanh thu</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -226,7 +226,7 @@ $profit = $totalRevenue - $totalCost;
             <p>Không có dữ liệu doanh thu cho khoảng thời gian đã chọn.</p>
             <?php endif; ?>
 
-            <h2>Top 10 Sản Phẩm Bán Chạy Nhất (<?= htmlspecialchars($startDate) ?> - <?= htmlspecialchars($endDate) ?>)
+            <h2>Top 10 sản phẩm bán chạy nhất (<?= htmlspecialchars($startDate) ?> - <?= htmlspecialchars($endDate) ?>)
             </h2>
             <?php if (!empty($topProducts)) : ?>
             <ol class="top-products-list">
@@ -241,7 +241,7 @@ $profit = $totalRevenue - $totalCost;
             <p>Không có sản phẩm bán chạy trong khoảng thời gian này.</p>
             <?php endif; ?>
 
-            <h2>Top 10 Hãng Sản Xuất Bán Chạy Nhất (<?= htmlspecialchars($startDate) ?> -
+            <h2>Top 10 hãng sản xuất bán chạy nhất (<?= htmlspecialchars($startDate) ?> -
                 <?= htmlspecialchars($endDate) ?>)
             </h2>
             <?php if (!empty($topBrands)) : ?>
@@ -260,21 +260,21 @@ $profit = $totalRevenue - $totalCost;
 
         <!-- Added ID here -->
         <div id="business-results">
-            <h2>Báo Cáo Kết Quả Kinh Doanh (<?= htmlspecialchars($startDate) ?> - <?= htmlspecialchars($endDate) ?>)
+            <h2>Báo cáo kết quả kinh doanh (<?= htmlspecialchars($startDate) ?> - <?= htmlspecialchars($endDate) ?>)
             </h2>
             <table>
                 <tbody>
                     <!-- Use tbody for consistency -->
                     <tr>
-                        <td><strong>Tổng Doanh Thu:</strong></td>
+                        <td><strong>Tổng doanh thu:</strong></td>
                         <td><strong><?= formatCurrency($totalRevenue) ?></strong></td>
                     </tr>
                     <tr>
-                        <td><strong>Tổng Vốn:</strong></td>
+                        <td><strong>Tổng vốn:</strong></td>
                         <td><strong><?= formatCurrency($totalCost) ?></strong></td>
                     </tr>
                     <tr>
-                        <td><strong>Lợi Nhuận:</strong></td>
+                        <td><strong>Lợi nhuận:</strong></td>
                         <td>
                             <!-- Added ID here -->
                             <strong id="profit-value" style="color: <?= ($profit >= 0) ? '#27ae60' : '#e74c3c' ?>;">

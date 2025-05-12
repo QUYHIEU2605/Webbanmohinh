@@ -149,34 +149,34 @@ $resultNSX = $conn->query($sqlNSX);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="capnhat.css?v=<?php echo time(); ?>">
-    <title>Cập Nhật Sản Phẩm</title>
+    <title>Cập nhật sản phẩm</title>
 
 </head>
 
 <body>
-    <h2>Cập Nhật Sản Phẩm</h2>
+    <h2>Cập nhật sản phẩm</h2>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . "?id=" . $id; ?>" method="post"
         enctype="multipart/form-data">
         <div>
-            <label for="tensanpham">Tên Sản Phẩm:</label>
+            <label for="tensanpham">Tên sản phẩm:</label>
             <input type="text" id="tensanpham" name="tensanpham"
                 value="<?php echo htmlspecialchars($product['tensanpham']); ?>">
             <span class="error"><?php echo $tenError; ?></span>
         </div>
         <div>
-            <label for="loaisanpham">Loại Sản Phẩm:</label>
+            <label for="loaisanpham">Loại sản phẩm:</label>
             <input type="text" id="loaisanpham" name="loaisanpham"
                 value="<?php echo htmlspecialchars($product['loaisanpham']); ?>">
             <span class="error"><?php echo $loaiError; ?></span>
         </div>
         <div>
-            <label for="tinhtrang">Tình Trạng Sản Phẩm:</label>
+            <label for="tinhtrang">Tình trạng sản phẩm:</label>
             <input type="text" id="tinhtrang" name="tinhtrang"
                 value="<?php echo htmlspecialchars($product['tinhtrang']); ?>">
             <span class="error"><?php echo $loaiError; ?></span>
         </div>
         <div>
-            <label for="masx">Nhà Sản Xuất:</label>
+            <label for="masx">Nhà sản xuất:</label>
             <select name="masx" id="masx">
                 <?php
                 if ($resultNSX->num_rows > 0) {
@@ -189,29 +189,29 @@ $resultNSX = $conn->query($sqlNSX);
             </select>
         </div>
         <div>
-            <label for="giaban">Giá Bán:</label>
+            <label for="giaban">Giá bán:</label>
             <input type="number" id="giaban" name="giaban" value="<?php echo htmlspecialchars($product['giaban']); ?>">
             <span class="error"><?php echo $giaError; ?></span>
         </div>
         <div>
-            <label for="gianhap">Giá Nhập:</label>
+            <label for="gianhap">Giá nhập:</label>
             <input type="number" id="gianhap" name="gianhap"
                 value="<?php echo htmlspecialchars($product['gianhap']); ?>">
             <span class="error"><?php echo $giaError; ?></span>
         </div>
         <div>
-            <label for="soluong">Số Lượng:</label>
+            <label for="soluong">Số lượng:</label>
             <input type="number" id="soluong" name="soluong"
                 value="<?php echo htmlspecialchars($product['soluong']); ?>">
             <span class="error"><?php echo $soLuongError; ?></span>
         </div>
         <div>
-            <label for="giamgia">Giảm Giá:</label>
+            <label for="giamgia">Giảm giá:</label>
             <input type="number" id="giamgia" name="giamgia"
                 value="<?php echo htmlspecialchars($product['giamgia']); ?>">
         </div>
         <div>
-            <label for="mieuta">Miêu Tả:</label>
+            <label for="mieuta">Miêu tả:</label>
             <textarea id="mieuta" name="mieuta"><?php echo htmlspecialchars($product['mieuta']); ?></textarea>
         </div>
         <div>
@@ -228,7 +228,7 @@ $resultNSX = $conn->query($sqlNSX);
                      foreach ($images as $image) {
                          if (!empty($image)) {
                              echo '<div class="preview-image-container">';
-                             echo '<img src="../../uploads/' . htmlspecialchars($image) . '" width="50" height="50" style="margin-right: 5px;">';
+                             echo '<img src="../../uploads/' . htmlspecialchars($image) . '" width="100%" height="20%" style="margin-right: 5px;">';
                              echo '<span class="remove-image" data-src="../../uploads/' . htmlspecialchars($image) . '">×</span>';
                              echo '</div>';
                          }

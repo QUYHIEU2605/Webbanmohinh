@@ -1,6 +1,6 @@
 <?php
 include '../../db_connect.php';
-include '../menu/menu_customer.php';
+include '../../customer/menu/menu_customer.php';
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 // Kiểm tra xem người dùng đã đăng nhập chưa
 if (!isset($_SESSION['manguoidung'])) {
@@ -179,22 +179,15 @@ if ($tongtien <= 0) {
     die("Lỗi: Tổng tiền không hợp lệ.");
 }
 
-// Tính tổng tiền cuối cùng (đã bao gồm giảm giá và phí vận chuyển)
-$tongtien_final = round($totalPrice - $giamGiaValue + $phiVanChuyen, 2);
 
 try {
     $conn->begin_transaction();
-    
-    // Kiểm tra tổng tiền hợp lệ
-    if ($tongtien_final <= 0) {
-        throw new Exception("Lỗi: Tổng tiền cuối cùng không hợp lệ.");
-    }
     
     // Thêm đơn hàng vào bảng donhang với tổng tiền cuối cùng
     $sqlDonHang = "INSERT INTO donhang (manguoidung, ngaydathang, tongtien, phuongthucthanhtoan, trangthai) 
                    VALUES (?, ?, ?, ?, ?)";
     $stmtDonHang = $conn->prepare($sqlDonHang);
-    $stmtDonHang->bind_param("isdss", $_SESSION['manguoidung'], $ngaydathang, $tongtien_final, $phuongthucthanhtoan, $trangthai);
+    $stmtDonHang->bind_param("isdss", $_SESSION['manguoidung'], $ngaydathang, $tongtien, $phuongthucthanhtoan, $trangthai);
     
     if (!$stmtDonHang->execute()) {
         throw new Exception("Lỗi khi tạo đơn hàng: " . $stmtDonHang->error);
@@ -342,7 +335,7 @@ $maQR = "../../uploads/QR.jpg";
     </span> VNĐ
 </p>
     </div>
-</div>
+
 
 <!-- JavaScript -->
 
@@ -389,6 +382,7 @@ $maQR = "../../uploads/QR.jpg";
         </div>
 
         <div>
+            <div class="coupon">
             <label for='magiamgia'>Mã giảm giá:</label>
             <input type='text' name='magiamgia' id='magiamgia' placeholder="Nhập mã giảm giá" value='<?= htmlspecialchars($tenmagiamgia) ?>'>
             <button type='submit' name='apply_discount'>Áp dụng</button>
@@ -398,6 +392,7 @@ $maQR = "../../uploads/QR.jpg";
             <?php if ($maGiamGiaThanhCong): ?>
                 <p style="color:green"><?= $maGiamGiaThanhCong ?></p>
             <?php endif; ?>
+            </div>
         </div>
 
 
@@ -408,7 +403,7 @@ $maQR = "../../uploads/QR.jpg";
     </form>
 </div>
     </div>
-    
+  </div>  
 </body>
 </html>
 <script>

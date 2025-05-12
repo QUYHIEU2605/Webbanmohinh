@@ -29,7 +29,7 @@ include '../../customer/menu/menu_customer.php'; // Đảm bảo đường dẫn
         <div class="success-icon">
             <i class="fas fa-check-circle"></i> <!-- Icon dấu tích -->
         </div>
-        <h1>Đặt Hàng Thành Công!</h1>
+        <h1>Đặt hàng thành công!</h1>
         <p class="thank-you-message">Cảm ơn bạn đã tin tưởng và mua hàng tại cửa hàng của chúng tôi.</p>
         <p>Đơn hàng của bạn đã được ghi nhận và đang chờ xử lý. Chúng tôi sẽ thông báo cho bạn khi đơn hàng được vận
             chuyển.</p>

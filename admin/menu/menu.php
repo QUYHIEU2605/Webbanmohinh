@@ -18,7 +18,7 @@ if ($_SESSION['vaitro'] == 'Khách hàng') {
     exit();
 }
 ?>
-<link rel="stylesheet" href="/mohinh/admin/menu/menu.css?v=<?php echo time(); ?>">
+<link rel="stylesheet" href="../../admin/menu/menu.css?v=<?php echo time(); ?>">
 <nav class="navbar">
     <div class="container">
         <a href="index.php" class="logo">My Website</a>
@@ -29,8 +29,7 @@ if ($_SESSION['vaitro'] == 'Khách hàng') {
             <li <?php if ($current_page == '../../admin/vanchuyen/dsvanchuyen.php') echo 'class="active"'; ?>><a href="../../admin/vanchuyen/dsvanchuyen.php">Đơn vị vận chuyển</a></li>
             <li <?php if ($current_page == '../../admin/magiamgia/qlymagiamgia.php') echo 'class="active"'; ?>><a href="../../admin/magiamgia/qlymagiamgia.php">Mã giảm giá</a></li>
             <li <?php if ($current_page == '../../admin/user/users.php') echo 'class="active"'; ?>><a href="../../admin/user/users.php">Quản lý người dùng</a></li>
-            <li <?php if ($current_page == '../../chat/chatboss.php') echo 'class="active"'; ?>><a href="../../chat/chatboss.php">Chat</a></li>
-
+            <li <?php if ($current_page == '../../admin/user/profile.php') echo 'class="active"'; ?>><a href="../../admin/user/profile.php">Sửa thông tin</a></li>
             <li <?php if ($current_page == '../../admin/thongke/thongke.php') echo 'class="active"'; ?>><a href="../../admin/thongke/thongke.php">Thống kê</a></li>
             <li <?php if ($current_page == '../../admin/logout.php') echo 'class="active"'; ?>><a href="../../admin/logout.php">Đăng xuất</a></li>
         </ul>

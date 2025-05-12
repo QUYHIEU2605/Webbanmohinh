@@ -105,7 +105,7 @@ $users = array_filter($users, function($user) use ($discountUserIds) {
 </head>
 
 <body>
-    <h1>Quản Lý Người Dùng Của Mã Giảm Giá</h1>
+    <h1>Quản lý người dùng của mã giảm giá</h1>
     <div class="user-lists-container">
         <div class="user-list">
             <h2>Danh sách người dùng</h2>

@@ -53,7 +53,7 @@ $sqlSanPhamMoi = "SELECT masanpham, tensanpham, anh, giaban, giamgia
                   FROM sanpham
                   WHERE soluong > 0 AND tinhtrang = 'Có sẵn'
                   ORDER BY masanpham DESC
-                  LIMIT 12";
+                  LIMIT 5";
 $resultSanPhamMoi = $conn->query($sqlSanPhamMoi);
 
 $sanPhamMoi = [];
@@ -67,7 +67,7 @@ $sqlSanPhamDat = "SELECT masanpham, tensanpham, anh, giaban, giamgia
                   FROM sanpham
                   WHERE soluong > 0 AND tinhtrang = 'Order'
                   ORDER BY masanpham DESC
-                  LIMIT 12";
+                  LIMIT 5";
 $resultSanPhamDat = $conn->query($sqlSanPhamDat);
 
 $sanPhamDat = [];
@@ -112,7 +112,7 @@ if ($resultSanPhamDat && $resultSanPhamDat->num_rows > 0) {
             <?php endif; ?>
         </center>
     </div>
-    <h2>Các Loại Sản Phẩm Phổ Biến</h2>
+    <h2>Các loại sản phẩm phổ biến</h2>
     <div class="loai-san-pham-container">
         <?php if (!empty($loaiSanPhamPhoBien)): ?>
         <?php foreach ($loaiSanPhamPhoBien as $loai): ?>
@@ -154,7 +154,7 @@ if ($resultSanPhamDat && $resultSanPhamDat->num_rows > 0) {
         <p>Không có loại sản phẩm nào.</p>
         <?php endif; ?>
     </div>
-    <h2>Sản Phẩm Có Sẵn</h2>
+    <h2>Sản phẩm có sẵn</h2>
     <div class="sanpham-moi-container">
         <?php if (!empty($sanPhamMoi)): ?>
         <?php foreach ($sanPhamMoi as $sp):
@@ -188,7 +188,7 @@ if ($resultSanPhamDat && $resultSanPhamDat->num_rows > 0) {
         <p>Không có sản phẩm mới.</p>
         <?php endif; ?>
     </div>
-    <h2>Sản Phẩm Đặt Trước</h2>
+    <h2>Sản phẩm đặt trước</h2>
     <div class="sanpham-moi-container">
         <?php if (!empty($sanPhamDat)): ?>
         <?php foreach ($sanPhamDat as $sp):

@@ -66,11 +66,11 @@ $allGiamGia = array_merge($giamGiaCongKhai, $giamGiaRieng);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="giohang.css?v=<?php echo time(); ?>">
 
-    <title>Giỏ Hàng</title>
+    <title>Giỏ hàng</title>
 </head>
 
 <body>
-    <h1>Giỏ Hàng</h1>
+    <h1>Giỏ hàng</h1>
     <div id="cart-container">
 
     </div>
@@ -168,8 +168,11 @@ $allGiamGia = array_merge($giamGiaCongKhai, $giamGiaRieng);
                 xhr.onload = function() {
                     if (xhr.status === 200) {
                         cartItems.splice(index, 1);
-                        renderCart();
+                        renderCart(); // Re-render the cart to update total price
                         updateCartCounter();
+                        if (cartItems.length === 0) {
+                            totalAmount.innerText = 'Tổng tiền: 0 VNĐ'; // Set total price to 0
+                        }
                     } else {
                         console.error('Error updating cart:', xhr.status, xhr.statusText);
                     }
@@ -262,7 +265,7 @@ $allGiamGia = array_merge($giamGiaCongKhai, $giamGiaRieng);
                     quantity: item.soluong,
                     price: item.giaban,
                     image: '../../uploads/' + item.anh.split(',')[
-                    0], // Đường dẫn đầy đủ đến ảnh
+                        0], // Đường dẫn đầy đủ đến ảnh
                     discount: item.giamgia
                 };
             }));

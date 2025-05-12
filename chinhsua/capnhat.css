@@ -1,112 +1,210 @@
-/* Styles specific to the edit page */
-.edit-page {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f4f4f4;
-  }
-  
-  .edit-page h2 {
-    text-align: center;
+/* =========================================
+   Base Styles & Resets
+   ========================================= */
+   * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f7f6; /* Light background */
     color: #333;
-  }
-  
-  .edit-page form {
-    background-color: #fff;
-    padding: 20px;
+    padding: 0; /* Padding around the whole page */
+}
+
+/* =========================================
+   Edit Page Container
+   ========================================= */
+.edit-page {
+    max-width: 750px; /* Adjust max-width as needed */
+    margin: 30px auto; /* Center the container */
+    background-color: #ffffff; /* White background */
+    padding: 25px 30px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 20px auto;
-  }
-  
-  .edit-page label {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.edit-page h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #2c3e50; /* Dark blue/gray heading */
+    font-size: 1.6rem;
+}
+
+/* =========================================
+   Form Styling
+   ========================================= */
+.edit-page form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between form elements/sections */
+}
+
+.edit-page form div {
+    /* General spacing for form sections */
+}
+
+.edit-page label {
     display: block;
     margin-bottom: 8px;
+    font-weight: bold;
     color: #555;
-  }
-  
-  .edit-page input[type="file"] {
-    width: calc(100% - 22px);
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  .edit-page button[type="submit"],
-  .edit-page button[type="button"] {
-    background-color: #5cb85c;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-right: 10px;
-  }
-  
-  .edit-page button[type="submit"]:hover,
-  .edit-page button[type="button"]:hover {
-    background-color: #4cae4c;
-  }
-  
-  .edit-page .drop-area {
+    font-size: 0.95rem;
+}
+
+/* =========================================
+   Image Upload Area
+   ========================================= */
+.drop-area {
     border: 2px dashed #ccc;
-    padding: 20px;
+    border-radius: 6px;
+    padding: 40px 20px; /* Generous padding */
     text-align: center;
-    margin-bottom: 15px;
+    color: #aaa;
+    font-size: 1rem;
     cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .edit-page .preview {
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    margin-bottom: 15px; /* Space below drop area */
+}
+
+.drop-area:hover,
+.drop-area.dragover { /* Add 'dragover' class with JS */
+    border-color: #3498db; /* Highlight color */
+    background-color: #eaf4fc; /* Light blue background */
+    color: #3498db;
+}
+
+/* =========================================
+   Image Preview Area
+   ========================================= */
+#preview {
     display: flex;
-    flex-wrap: wrap;
-    margin-top: 10px;
-  }
-  
-  .edit-page .preview img {
-    max-width: 50px;
-    max-height: 50px;
-    margin-right: 5px;
-    margin-bottom: 5px;
+    flex-wrap: wrap; /* Allow images to wrap to the next line */
+    gap: 15px; /* Space between preview images */
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee; /* Separator line */
+}
+
+.preview-image-container {
+    position: relative; /* Needed for absolute positioning of remove button */
+    width: 100px; /* Size of the preview thumbnail */
+    height: 100px;
     border: 1px solid #ddd;
-    padding: 2px;
-  }
-  
-  .edit-page .remove-image {
-    cursor: pointer;
-    font-size: 15px;
-    color: red;
+    border-radius: 4px;
+    overflow: hidden; /* Hide parts of the image that overflow */
+    background-color: #f0f0f0; /* Placeholder background */
+}
+
+.preview-image-container img {
+    display: block; /* Remove extra space below image */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Scale image to cover the container, cropping if needed */
+}
+
+.remove-image {
     position: absolute;
-    top: -2px;
-    right: 2px;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 50%;
-    width: 18px;
-    height: 18px;
+    top: 4px;
+    right: 4px;
+    width: 22px;
+    height: 22px;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+    color: #fff;
+    border: none;
+    border-radius: 50%; /* Circular button */
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    line-height: 1;
-  }
-  
-  .edit-page .preview-image-container {
-    display: inline-block;
-    position: relative;
-  }
-  .preview-image-container{
-    width: 300px;
-    height: 150px; 
-    margin-right: 5px;
-  }
-  .preview-image-container img{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1; /* Ensure '×' is centered */
+    transition: background-color 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.remove-image:hover {
+    background-color: #e74c3c; /* Red background on hover */
+}
+
+/* =========================================
+   Buttons
+   ========================================= */
+.edit-page form button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    font-weight: bold;
+    margin-top: 10px; /* Add some space above the buttons */
+}
+
+/* Group buttons if needed, e.g., at the end */
+.edit-page form div.button-group { /* Optional: wrap buttons in a div */
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start; /* Or flex-end, center */
+    margin-top: 20px;
+}
+
+.edit-page form button[type="submit"] {
+    background-color: #2ecc71; /* Green for update/confirm */
+    color: white;
+    flex-grow: 1; /* Example: Make update button take more space if in a group */
+}
+
+.edit-page form button[type="submit"]:hover {
+    background-color: #27ae60; /* Darker green */
+}
+
+.edit-page form button[type="button"] {
+    background-color: #bdc3c7; /* Gray for cancel/secondary actions */
+    color: #333;
+    flex-grow: 0; /* Example */
+}
+
+.edit-page form button[type="button"]:hover {
+    background-color: #95a5a6; /* Darker gray */
+}
+
+.edit-page form button:active {
+    transform: scale(0.98); /* Slight press effect */
+}
+
+
+/* =========================================
+   Responsiveness (Optional Basic Example)
+   ========================================= */
+@media (max-width: 600px) {
+    .edit-page {
+        margin: 15px;
+        padding: 20px;
+    }
+
+    .edit-page h2 {
+        font-size: 1.4rem;
+    }
+
+    .preview-image-container {
+        width: 80px; /* Smaller thumbnails on mobile */
+        height: 80px;
+    }
+
+    .drop-area {
+        padding: 30px 15px;
+        font-size: 0.9rem;
+    }
+
+    .edit-page form button {
+        padding: 10px 15px;
+        font-size: 0.95rem;
+    }
+}

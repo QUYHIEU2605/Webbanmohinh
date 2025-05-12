@@ -21,53 +21,86 @@ if ($_SESSION['vaitro'] == 'Khách hàng') {
 if (isset($_POST['toggle_order'])) {
     $madon = $_POST['madon'];
     $trangthai = $_POST['trangthai'];
-    $page = isset($_POST['page']) ? (int)$_POST['page'] : 1; // Lấy page từ POST để giữ nguyên trang
+    $page = isset($_POST['page']) ? (int)$_POST['page'] : 1;
 
-    if ($trangthai === 'Đã xác nhận') {
-        // Nếu đơn hàng đã xác nhận → Hủy và Xóa đơn (Logic này hơi lạ, thường chỉ đổi trạng thái thành Đã hủy)
-        // Giả sử bạn muốn XÓA HOÀN TOÀN theo code gốc:
+    if ($trangthai === 'Yêu cầu hủy') {
+        // Xóa đơn hàng và cập nhật lại số lượng sản phẩm
         $conn->begin_transaction();
         try {
-            // Xóa chi tiết đơn hàng trước
+            // Lấy chi tiết sản phẩm trong đơn hàng
+            $sql_get_details = "SELECT masanpham, soluong FROM chitietdonhang WHERE madon = ?";
+            $stmt_get_details = $conn->prepare($sql_get_details);
+            $stmt_get_details->bind_param("i", $madon);
+            $stmt_get_details->execute();
+            $result_details = $stmt_get_details->get_result();
+
+            // Cập nhật lại số lượng sản phẩm
+            while ($row = $result_details->fetch_assoc()) {
+                $sql_update_product = "UPDATE sanpham SET soluong = soluong + ? WHERE masanpham = ?";
+                $stmt_update_product = $conn->prepare($sql_update_product);
+                $stmt_update_product->bind_param("ii", $row['soluong'], $row['masanpham']);
+                $stmt_update_product->execute();
+                $stmt_update_product->close();
+            }
+            $stmt_get_details->close();
+
+            // Xóa chi tiết đơn hàng
             $sql_delete_details = "DELETE FROM chitietdonhang WHERE madon = ?";
             $stmt_delete_details = $conn->prepare($sql_delete_details);
-            if ($stmt_delete_details) {
-                $stmt_delete_details->bind_param("i", $madon);
-                $stmt_delete_details->execute();
-                $stmt_delete_details->close();
-            } else { throw new Exception("Lỗi chuẩn bị xóa chi tiết đơn hàng: " . $conn->error); }
+            $stmt_delete_details->bind_param("i", $madon);
+            $stmt_delete_details->execute();
+            $stmt_delete_details->close();
 
             // Xóa đơn hàng
             $sql_delete_order = "DELETE FROM donhang WHERE madon = ?";
             $stmt_delete_order = $conn->prepare($sql_delete_order);
-            if ($stmt_delete_order) {
-                $stmt_delete_order->bind_param("i", $madon);
-                $stmt_delete_order->execute();
-                $stmt_delete_order->close();
-            } else { throw new Exception("Lỗi chuẩn bị xóa đơn hàng: " . $conn->error); }
+            $stmt_delete_order->bind_param("i", $madon);
+            $stmt_delete_order->execute();
+            $stmt_delete_order->close();
 
             $conn->commit();
-            header("Location: " . $_SERVER['PHP_SELF'] . "?page=" . $page . (isset($_GET['search']) ? '&search='.urlencode($_GET['search']) : ''));
+            header("Location: " . $_SERVER['PHP_SELF'] . "?page=" . $page . (isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : ''));
             exit();
         } catch (Exception $e) {
             $conn->rollback();
-            echo "Lỗi khi hủy và xóa đơn hàng: " . $e->getMessage();
-            // Cân nhắc hiển thị lỗi thân thiện hơn hoặc log lỗi
+            echo "Lỗi khi xử lý yêu cầu hủy: " . $e->getMessage();
         }
-    } else {
-        // Nếu đơn hàng chưa xác nhận → Xác nhận đơn
+    } elseif ($trangthai === 'Chờ xác nhận') {
+        // Xác nhận đơn hàng
         $sql_update = "UPDATE donhang SET trangthai = 'Đã xác nhận' WHERE madon = ?";
         $stmt_update = $conn->prepare($sql_update);
-        if ($stmt_update) {
-            $stmt_update->bind_param("i", $madon);
-            if ($stmt_update->execute()) {
-                $stmt_update->close();
-                header("Location: " . $_SERVER['PHP_SELF'] . "?page=" . $page . (isset($_GET['search']) ? '&search='.urlencode($_GET['search']) : ''));
-                exit();
-            } else { echo "Lỗi khi thực thi cập nhật: " . $stmt_update->error; }
-        } else {
-            echo "Lỗi chuẩn bị cập nhật: " . $conn->error;
-        }
+        $stmt_update->bind_param("i", $madon);
+        $stmt_update->execute();
+        $stmt_update->close();
+        header("Location: " . $_SERVER['PHP_SELF'] . "?page=" . $page . (isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : ''));
+        exit();
+    }
+} elseif (isset($_POST['delete_order'])) {
+    $madon = $_POST['madon'];
+    $page = isset($_POST['page']) ? (int)$_POST['page'] : 1;
+
+    $conn->begin_transaction();
+    try {
+        // Xóa chi tiết đơn hàng
+        $sql_delete_details = "DELETE FROM chitietdonhang WHERE madon = ?";
+        $stmt_delete_details = $conn->prepare($sql_delete_details);
+        $stmt_delete_details->bind_param("i", $madon);
+        $stmt_delete_details->execute();
+        $stmt_delete_details->close();
+
+        // Xóa đơn hàng
+        $sql_delete_order = "DELETE FROM donhang WHERE madon = ?";
+        $stmt_delete_order = $conn->prepare($sql_delete_order);
+        $stmt_delete_order->bind_param("i", $madon);
+        $stmt_delete_order->execute();
+        $stmt_delete_order->close();
+
+        $conn->commit();
+        header("Location: " . $_SERVER['PHP_SELF'] . "?page=" . $page . (isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : ''));
+        exit();
+    } catch (Exception $e) {
+        $conn->rollback();
+        echo "Lỗi khi xóa đơn hàng: " . $e->getMessage();
     }
 }
 
@@ -117,7 +150,7 @@ if ($page > $totalPages && $totalPages > 0) { // Chuyển về trang cuối nế
 
 // Hàm lấy đơn hàng (đã sửa lỗi và tối ưu)
 function fetchOrders($conn, $start, $limit, $search) {
-    $sql = "SELECT dh.madon, dh.ngaydathang, dh.phuongthucthanhtoan, dh.tongtien, dh.trangthai,
+    $sql = "SELECT dh.madon, dh.ngaydathang, dh.phuongthucthanhtoan, dh.tongtien, dh.trangthai, dh.lydohuy,
                    nd.tennguoidung, nd.diachi, nd.sdt, dv.tendonvi AS donvivanchuyen
             FROM donhang dh
             JOIN nguoidung nd ON dh.manguoidung = nd.manguoidung
@@ -233,6 +266,7 @@ $conn->close(); // Đóng kết nối sau khi lấy hết dữ liệu
                         <th>Địa Chỉ</th>
                         <th>SĐT</th>
                         <th>Tổng Tiền</th>
+                        <th>Lý do hủy đơn</th>
                         <th>Trạng Thái</th>
                         <th>Hành Động</th>
                     </tr>
@@ -240,35 +274,40 @@ $conn->close(); // Đóng kết nối sau khi lấy hết dữ liệu
                 <tbody>
                     <?php if (empty($orders)): ?>
                     <tr>
-                        <td colspan="11" class="no-orders">Không tìm thấy đơn hàng nào.</td>
+                        <td colspan="12" class="no-orders">Không tìm thấy đơn hàng nào.</td>
                     </tr>
                     <?php else: ?>
                     <?php foreach ($orders as $order): ?>
                     <tr>
                         <td data-label="Mã Đơn"><?= htmlspecialchars($order['madon']) ?></td>
                         <td data-label="Sản Phẩm" class="product-details-cell">
-                            <?php if (empty($order['sanpham'])): ?>
-                            <p class="no-product">Không có sản phẩm</p>
-                            <?php else: ?>
-                            <?php foreach ($order['sanpham'] as $product): ?>
-                            <div class="product-item">
-                                <img src="../../uploads/<?= htmlspecialchars($product['anh'] ?? 'default.png') ?>"
-                                    alt="<?= htmlspecialchars($product['tensanpham']) ?>" class="product-img">
-                                <p class="product-name"><?= htmlspecialchars($product['tensanpham']) ?> (SL:
-                                    <?= htmlspecialchars($product['soluong']) ?>)</p>
-                            </div>
-                            <?php endforeach; ?>
-                            <?php endif; ?>
-                        </td>
-                        <td data-label="Ngày Đặt">
-                            <?= date("d/m/Y H:i", strtotime($order['ngaydathang'])) // Định dạng ngày ?></td>
+    <?php if (empty($order['sanpham'])): ?>
+        <p class="no-product">Không có sản phẩm</p>
+    <?php else: ?>
+        <?php foreach ($order['sanpham'] as $product): ?>
+            <div class="product-item">
+                <?php
+                $images = explode(',', $product['anh'] ?? 'default.png');
+                $firstImage = trim($images[0]);
+                ?>
+                <img src="../../uploads/<?= htmlspecialchars($firstImage) ?>"
+                     alt="<?= htmlspecialchars($product['tensanpham']) ?>"
+                     class="product-img" style="margin-right: 5px; width: 50px; height: 50px;">
+                <p class="product-name"><?= htmlspecialchars($product['tensanpham']) ?> (SL:
+                    <?= htmlspecialchars($product['soluong']) ?>)</p>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</td>
+
+                        <td data-label="Ngày Đặt"><?= date("d/m/Y H:i", strtotime($order['ngaydathang'])) ?></td>
                         <td data-label="ĐV Vận Chuyển"><?= htmlspecialchars($order['donvivanchuyen'] ?? 'N/A') ?></td>
                         <td data-label="PT Thanh Toán"><?= htmlspecialchars($order['phuongthucthanhtoan']) ?></td>
                         <td data-label="Người Đặt"><?= htmlspecialchars($order['tennguoidung']) ?></td>
                         <td data-label="Địa Chỉ"><?= htmlspecialchars($order['diachi']) ?></td>
                         <td data-label="SĐT"><?= htmlspecialchars($order['sdt']) ?></td>
-                        <td data-label="Tổng Tiền" class="price"><?= number_format($order['tongtien'], 0, ',', '.') ?>
-                            VNĐ</td>
+                        <td data-label="Tổng Tiền" class="price"><?= number_format($order['tongtien'], 0, ',', '.') ?> VNĐ</td>
+                        <td data-label="Lý do hủy đơn"><?= htmlspecialchars($order['lydohuy'] ?? 'Không có') ?></td>
                         <td data-label="Trạng Thái">
                             <span class="status status-<?= strtolower(str_replace(' ', '-', $order['trangthai'])) ?>">
                                 <?= htmlspecialchars($order['trangthai']) ?>
@@ -276,14 +315,16 @@ $conn->close(); // Đóng kết nối sau khi lấy hết dữ liệu
                         </td>
                         <td data-label="Hành Động" class="action-cell">
                             <form method="post" class="action-form"
-                                onsubmit="return confirm('<?= $order['trangthai'] == 'Đã xác nhận' ? 'Bạn có chắc muốn HỦY và XÓA đơn hàng này khỏi hệ thống không?' : 'Bạn có chắc muốn XÁC NHẬN đơn hàng này không?' ?>');">
+                                onsubmit="return confirm('<?= $order['trangthai'] == 'Chờ xác nhận' ? 'Bạn có chắc muốn XÁC NHẬN đơn hàng này không?' : ($order['trangthai'] == 'Yêu cầu hủy' ? 'Bạn có chắc muốn XÁC NHẬN HỦY đơn hàng này không?' : 'Bạn có chắc muốn XÓA đơn hàng này không?') ?>');">
                                 <input type="hidden" name="madon" value="<?= $order['madon'] ?>">
                                 <input type="hidden" name="trangthai" value="<?= $order['trangthai'] ?>">
                                 <input type="hidden" name="page" value="<?= $page ?>">
-                                <button type="submit" name="toggle_order"
-                                    class="action-button <?= $order['trangthai'] == 'Đã xác nhận' ? 'btn-cancel' : 'btn-confirm' ?>">
-                                    <?= $order['trangthai'] == 'Đã xác nhận' ? 'Hủy Đơn' : 'Xác Nhận' ?>
-                                </button>
+                                <?php if ($order['trangthai'] == 'Chờ xác nhận') { ?>
+                                    <button type="submit" name="toggle_order" class="action-button btn-confirm">Xác Nhận</button>
+                                <?php } elseif ($order['trangthai'] == 'Yêu cầu hủy') { ?>
+                                    <button type="submit" name="toggle_order" class="action-button btn-cancel">Xác Nhận Hủy</button>
+                                <?php } ?>
+                                <button type="submit" name="delete_order" class="action-button btn-delete">Xóa Đơn</button>
                             </form>
                         </td>
                     </tr>

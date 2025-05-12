@@ -129,14 +129,14 @@ $conn->close();
 </head>
 
 <body>
-    <h2>Thêm Sản Phẩm Mới</h2>
+    <h2>Thêm sản phẩm mới</h2>
     <form method="POST" action="" enctype="multipart/form-data">
-        <label for="tensanpham">Tên Sản Phẩm:</label><br>
+        <label for="tensanpham">Tên sản phẩm:</label><br>
         <input type="text" id="tensanpham" name="tensanpham" required><br><br>
 
-        <label for="loaisanpham">Loại Sản Phẩm:</label><br>
+        <label for="loaisanpham">Loại sản phẩm:</label><br>
         <select id="loaisanpham" name="loaisanpham">
-            <option value="">Chọn Loại Sản Phẩm</option>
+            <option value="">Chọn loại sản phẩm</option>
             <?php
              if ($result_types->num_rows > 0) {
                     while ($row = $result_types->fetch_assoc()) {
@@ -147,9 +147,9 @@ $conn->close();
         </select>
         <input type="text" id="new_loaisanpham" name="new_loaisanpham" placeholder="Nhập loại mới nếu không có"><br><br>
 
-        <label for="tinhtrang">Tình Trạng Sản Phẩm:</label><br>
+        <label for="tinhtrang">Tình trạng sản phẩm:</label><br>
         <select id="tinhtrang" name="tinhtrang">
-            <option value="">Chọn Tình Trạng Sản Phẩm</option>
+            <option value="">Chọn tình trạng sản phẩm</option>
             <?php
              if ($result_types1->num_rows > 0) {
                     while ($row = $result_types1->fetch_assoc()) {
@@ -161,9 +161,9 @@ $conn->close();
         <input type="text" id="new_tinhtrang" name="new_tinhtrang"
             placeholder="Nhập tình trạng mới nếu không có"><br><br>
 
-        <label for="tenhang">Nhà Sản Xuất:</label><br>
+        <label for="tenhang">Nhà sản xuất:</label><br>
         <select id="tenhang" name="tenhang" required>
-            <option value="">Chọn Nhà Sản Xuất</option>
+            <option value="">Chọn nhà sản xuất</option>
             <?php
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
@@ -173,16 +173,16 @@ $conn->close();
             ?>
         </select><br><br>
 
-        <label for="soluong">Số Lượng:</label><br>
+        <label for="soluong">Số lượng:</label><br>
         <input type="number" id="soluong" name="soluong" required><br><br>
 
-        <label for="giaban">Giá Bán:</label><br>
+        <label for="giaban">Giá bán:</label><br>
         <input type="number" step="0.01" id="giaban" name="giaban" required><br><br>
 
-        <label for="gianhap">Giá Nhập:</label><br>
+        <label for="gianhap">Giá nhập:</label><br>
         <input type="number" step="0.01" id="gianhap" name="gianhap" required><br><br>
 
-        <label for="giamgia">Giảm Giá:</label><br>
+        <label for="giamgia">Giảm giá:</label><br>
         <input type="number" step="0.01" id="giamgia" name="giamgia"><br><br>
 
         <label for="anh">Chọn hoặc Kéo Thả Ảnh (Có thể chọn nhiều ảnh):</label><br>
@@ -192,7 +192,7 @@ $conn->close();
         <input type="file" id="anh" name="anh[]" accept="image/*" multiple style="display: none;" required>
         <div class="preview" id="preview"></div><br><br>
 
-        <label for="mieuta">Miêu Tả:</label><br>
+        <label for="mieuta">Miêu tả:</label><br>
         <textarea id="mieuta" name="mieuta" rows="5" cols="40"
             required><?= htmlspecialchars($mieuta); ?></textarea><br><br>
 

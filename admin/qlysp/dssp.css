@@ -108,13 +108,13 @@ h2 {
 
 .product-table {
     width: 100%;
-    min-width: 1400px; /* Đặt chiều rộng tối thiểu lớn hơn cho nhiều cột */
+    min-width: 1000px; /* Giảm min-width để phù hợp hơn */
     border-collapse: collapse;
     background: var(--background-light);
     box-shadow: 0 2px 10px var(--shadow-color);
     border-radius: 8px;
     overflow: hidden;
-    font-size: 0.88em; /* Giảm font size nhẹ */
+    font-size: 0.9em; /* Tăng nhẹ font size */
     border: 1px solid var(--border-color);
 }
 
@@ -323,6 +323,38 @@ h2 {
     text-decoration: none;
 }
 
+/* --- Pagination Styles --- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 5px;
+}
+
+.page-link {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.page-link:hover {
+    background-color: var(--primary-orange);
+    color: white;
+}
+
+.page-link.active {
+    background-color: var(--primary-orange);
+    color: white;
+    pointer-events: none;
+}
+
 /* --- Responsive Adjustments --- */
 @media (max-width: 992px) {
     .product-table {
@@ -345,6 +377,9 @@ h2 {
 
 @media (max-width: 576px) {
     .product-table { min-width: 600px; }
+    .product-table th:nth-child(9), .product-table td:nth-child(9) { 
+        display: none; /* Ẩn cột giá nhập trên màn hình nhỏ */
+    }
     /* Cân nhắc ẩn bớt cột không quan trọng trên mobile nếu cần */
     /* .product-table th:nth-child(9), .product-table td:nth-child(9) { display: none; } */ /* Ví dụ ẩn giá nhập */
 }

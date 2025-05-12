@@ -33,7 +33,7 @@ body {
 
 /* Container bảng báo cáo */
 .report-container {
-    width: 100%;
+    width: 90%;
     overflow-x: auto;
     background: #fff;
     border-radius: 10px;

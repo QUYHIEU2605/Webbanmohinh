@@ -1,361 +1,381 @@
-/* --- order_confirm.css --- */
-
-/* --- Global Styles & Variables --- */
-:root {
-    --primary-orange: #FF8C00; /* DarkOrange */
-    --secondary-orange: #FFA500; /* Orange */
-    --light-yellow: #FFF8DC; /* Cornsilk */
-    --accent-yellow: #FFD700; /* Gold */
-    --text-dark: #333333;
-    --text-light: #555555;
-    --border-color: #e0e0e0;
-    --background-light: #ffffff;
-    --background-very-light: #fffaf0; /* FloralWhite - slightly warmer than pure white */
-    --success-green: #28a745;
-    --error-red: #dc3545;
-    --shadow-color: rgba(0, 0, 0, 0.1);
+/* =========================================
+   Base Styles & Resets
+   ========================================= */
+   * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--background-very-light);
-    color: var(--text-dark);
-    margin: 0;
-    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     line-height: 1.6;
-}
-
-h1, h2 {
-    color: var(--primary-orange);
-    text-align: center;
-    margin-bottom: 20px;
+    background-color: #f4f7f6; /* Light gray background */
+    color: #333;
+    padding: 0; /* Padding around the whole page */
 }
 
 h1 {
-    margin-top: 20px;
-    font-size: 2.2em;
-    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #2c3e50; /* Dark blue/gray heading */
 }
 
 h2 {
-    font-size: 1.6em;
-    margin-top: 30px;
-    margin-bottom: 25px;
-    border-bottom: 2px solid var(--secondary-orange);
-    padding-bottom: 8px;
-    display: inline-block; /* Prevents border from spanning full width */
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: #3498db; /* Primary color for section titles */
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
 }
 
-/* --- Main Container --- */
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* =========================================
+   Main Container & Layout
+   ========================================= */
 .order-confirm-container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 30px;
-    background-color: var(--background-light);
-    border-radius: 10px;
-    box-shadow: 0 5px 15px var(--shadow-color);
-    display: flex; /* Enables flexbox */
-    flex-wrap: wrap; /* Allows wrapping on smaller screens */
-    gap: 40px; /* Space between the two sections */
-    /* == THAY ĐỔI QUAN TRỌNG: Căn giữa các item theo chiều dọc == */
-    align-items: center;
-    /* ========================================================= */
+    max-width: 90%; /* Max width for the content */
+    margin: 0 auto; /* Center the container */
+    background-color: #fff; /* White background for content area */
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
+    gap: 30px; /* Space between the two columns */
 }
 
-/* --- Sections: Order Details (Left, Larger) & Form (Right, Smaller) --- */
-.order-detail {
-    /* Chi tiết đơn hàng - chiếm nhiều không gian hơn */
-    flex: 2; /* Ví dụ: 2 phần */
-    min-width: 0; /* Allow shrinking */
-}
-
+.order-detail,
 .order-form {
-    /* Form thanh toán - chiếm ít không gian hơn */
-    flex: 1; /* Ví dụ: 1 phần */
-    max-width: 450px; /* Giữ giới hạn chiều rộng tối đa */
-    min-width: 0; /* Allow shrinking */
-    width: 100%; /* Đảm bảo nó dùng không gian flex được cấp */
-    margin: auto;
+    flex: 1; /* Each section takes equal space initially */
+    min-width: 300px; /* Minimum width before wrapping */
 }
 
-.order-detail h2,
-.order-form h2 {
-    text-align: left; /* Align section headers left */
-    display: block; /* Make border span width of the section */
-}
-
-/* --- Order Items --- */
+/* =========================================
+   Order Details Section (.order-detail)
+   ========================================= */
 .order-items {
-    margin-bottom: 25px;
+    margin-bottom: 1.5rem;
+    border-top: 1px solid #eee; /* Add separator above items */
+    padding-top: 1rem;
 }
 
 .order-item {
     display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--border-color);
+    align-items: flex-start; /* Align items to the top */
+    gap: 15px; /* Space between image and info */
+    padding: 15px 0;
+    border-bottom: 1px solid #eee; /* Separator between items */
 }
 
 .order-item:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
     border-bottom: none;
 }
 
 .order-item-image {
     width: 80px;
     height: 80px;
-    object-fit: cover;
-    margin-right: 20px;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
+    object-fit: cover; /* Crop image nicely */
+    border-radius: 4px;
+    flex-shrink: 0; /* Prevent image from shrinking */
+    border: 1px solid #eee;
 }
 
 .order-item-info p {
-    margin: 4px 0;
-    font-size: 0.95em;
-    color: var(--text-light);
+    margin-bottom: 0.4rem;
+    font-size: 0.95rem;
 }
 
-.order-item-info p:first-child { /* Product Name */
-    font-weight: 600;
-    color: var(--text-dark);
+.order-item-info p:first-child { /* Product name */
+    font-weight: bold;
+    color: #444;
 }
 
-/* --- Pricing & Totals --- */
-.total-price {
-    font-size: 1.1em;
-    margin: 10px 0;
-    text-align: right; /* Align totals to the right */
-    color: var(--text-light);
+/* Styling for price (handles inline styles from PHP) */
+.order-item-info span[style*="text-decoration: line-through"] {
+    color: #888; /* Gray out original price */
+    margin-right: 8px;
 }
 
-.total-price span {
-    font-weight: 600;
-    color: var(--text-dark);
-    display: inline-block; /* Ensures proper alignment */
-    min-width: 100px; /* Give some space */
+.order-item-info span[style*="color: red"] {
+    font-weight: bold;
+    color: #e74c3c !important; /* Ensure red color for discount */
 }
 
-/* Specific styling for price types */
-p.total-price[style*='color:red'] { /* Discount */
-    color: var(--error-red);
-}
-p.total-price[style*='color:red'] span {
-    color: var(--error-red);
-}
-
-p.total-price[style*='color:blue'] { /* Shipping */
-    color: #007bff; /* Standard blue for info */
-}
-p.total-price[style*='color:blue'] span {
-    color: #007bff;
+/* Totals */
+.order-detail .total-price {
+    text-align: right;
+    margin: 8px 0;
+    font-size: 1rem;
+    color: #555;
 }
 
-p.total-price[style*='font-weight: bold'] { /* Final Total */
-    font-size: 1.3em;
-    margin-top: 15px;
-    padding-top: 10px;
-    border-top: 1px dashed var(--secondary-orange);
-    color: var(--primary-orange); /* Highlight final total */
-}
-p.total-price[style*='font-weight: bold'] span#final-total-price {
-    color: var(--primary-orange);
-    font-weight: 700;
+.order-detail .total-price span { /* The numeric value */
+    font-weight: bold;
+    min-width: 120px; /* Align numbers */
+    display: inline-block;
+    margin-left: 10px;
+    color: #333;
 }
 
-/* --- Form Styles --- */
+.order-detail .total-price#base-total-price {
+    font-weight: normal; /* Base total normal weight */
+}
+
+/* Specific total lines styling (using inline style selectors) */
+.order-detail .total-price[style*="color:red"] { /* Discount & Final Total */
+    color: #e74c3c !important; /* Override inline style if needed */
+    font-weight: bold;
+}
+.order-detail .total-price[style*="color:red"] span {
+    color: #e74c3c !important;
+}
+
+.order-detail .total-price[style*="color:blue"] { /* Shipping */
+    color: #3498db !important; /* Blue for shipping */
+}
+.order-detail .total-price[style*="color:blue"] span {
+    color: #3498db !important;
+}
+
+/* Make Final Total stand out more */
+.order-detail p.total-price:last-of-type {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #ccc;
+}
+
+/* =========================================
+   Order Form Section (.order-form)
+   ========================================= */
 .order-form form div {
-    margin-bottom: 20px;
+    margin-bottom: 1.2rem;
 }
 
 .order-form label {
     display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: var(--text-light);
-    font-size: 0.9em;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #555;
+    font-size: 0.9rem;
 }
 
 .order-form input[type="text"],
 .order-form select {
     width: 100%;
     padding: 12px;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    box-sizing: border-box; /* Include padding in width */
-    font-size: 1em;
-    transition: border-color 0.3s ease;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
 }
 
 .order-form input[type="text"]:focus,
 .order-form select:focus {
+    border-color: #3498db; /* Highlight focus */
     outline: none;
-    border-color: var(--secondary-orange);
-    box-shadow: 0 0 5px rgba(255, 165, 0, 0.3); /* Subtle orange glow */
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
-/* Discount Code Area */
-.order-form form div:has(input#magiamgia) { /* Select the div containing the discount input */
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+
 
 .order-form input#magiamgia {
-    flex-grow: 1; /* Input takes available space */
+    flex-grow: 1; /* Allow input to take available space */
 }
 
 .order-form button[name='apply_discount'] {
-    padding: 12px 18px;
-    background-color: var(--text-light);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease;
-    white-space: nowrap; /* Prevent button text wrapping */
+    padding: 12px 15px;
     flex-shrink: 0; /* Prevent button from shrinking */
+    height: calc(2.4rem + 2px); /* Match input height (approx) */
 }
 
-.order-form button[name='apply_discount']:hover {
-    background-color: var(--text-dark);
+/* Discount Messages */
+.order-form p[style*="color:red"],   /* Error message */
+.order-form p[style*="color:green"] { /* Success message */
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 4px;
 }
-
-/* Discount messages */
-.order-form p[style*='color:red'] {
-    color: var(--error-red);
-    font-size: 0.9em;
-    margin-top: 5px;
+.order-form p[style*="color:red"] {
+    background-color: #fdecea;
+    border: 1px solid #f5c6cb;
+    color: #721c24 !important;
 }
-
-.order-form p[style*='color:green'] {
-    color: var(--success-green);
-    font-size: 0.9em;
-    margin-top: 5px;
+.order-form p[style*="color:green"] {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724 !important;
 }
-
 
 /* Bank Info */
 #bank-info {
-    margin-top: 15px;
+    background-color: #f9f9f9;
+    border: 1px dashed #ddd;
     padding: 15px;
-    background-color: var(--light-yellow);
-    border: 1px dashed var(--accent-yellow);
-    border-radius: 5px;
-    font-size: 0.9em;
+    margin-top: 1rem;
+    border-radius: 4px;
 }
 
 #bank-info p {
-    margin: 5px 0;
-    color: var(--text-dark);
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
+}
+#bank-info p:last-of-type {
+    margin-bottom: 0;
 }
 
-#bank-info img {
+#bank-info img { /* QR Code */
     display: block;
-    margin-top: 10px;
-    max-width: 120px; /* Control QR code size */
-    height: auto;
-    border: 1px solid var(--border-color);
+    margin: 15px auto 5px; /* Center and space */
+    max-width: 120px; /* Control QR size */
+    border: 1px solid #eee;
 }
 
-/* --- Buttons --- */
+/* Buttons */
 button {
-    font-family: inherit; /* Use the body's font */
-}
-
-#confirm-order-button {
-    display: block;
-    width: 100%;
-    padding: 15px 20px;
-    background-color: var(--primary-orange);
-    color: white;
+    padding: 12px 20px;
+    font-size: 1rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 1.2em;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 30px;
     transition: background-color 0.3s ease, transform 0.1s ease;
+    font-weight: bold;
 }
 
-#confirm-order-button:hover {
-    background-color: var(--secondary-orange); /* Lighter orange on hover */
+button:active {
+    transform: scale(0.98); /* Slight press effect */
 }
 
-#confirm-order-button:active {
-    transform: scale(0.98); /* Slight shrink effect on click */
+button[name='apply_discount'] {
+    background-color: #5dade2; /* Secondary blue */
+    color: white;
 }
 
-/* --- Responsive Design --- */
-@media (max-width: 800px) {
+button[name='apply_discount']:hover {
+    background-color: #3498db; /* Darker blue */
+}
+
+button[name='confirm_order'] {
+    background-color: #f0991f; /* Primary Green */
+    color: white;
+    width: 100%; /* Make confirm button full width */
+    margin-top: 1.5rem;
+    padding: 15px 20px; /* Larger padding for primary button */
+    font-size: 1.1rem;
+}
+
+button[name='confirm_order']:hover {
+    background-color: #feb351; /* Darker Green */
+}
+.coupon{
+    /*margin-bottom: 0px;*/
+    flex-direction: column;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+/* =========================================
+   Responsiveness (Media Queries)
+   ========================================= */
+
+/* Tablet */
+@media (max-width: 768px) {
     .order-confirm-container {
-        flex-direction: column; /* Stack sections vertically */
-        gap: 20px; /* Adjust gap for vertical layout */
-        /* == Khi xếp chồng, căn chỉnh lại để giãn ra == */
-        align-items: stretch;
-        /* ============================================ */
+        flex-direction: column; /* Stack columns */
+        padding: 20px;
     }
 
-    /* Reset flex properties and max-width for stacked view */
     .order-detail,
     .order-form {
-        flex: 1 1 auto; /* Allow them to take full width when stacked */
-        width: 100%; /* Explicitly set width */
-        max-width: none; /* Remove max-width constraint for stacking */
-    }
-
-    .total-price {
-        text-align: left; /* Align totals left on small screens */
+        min-width: unset; /* Remove min-width */
+        width: 100%;
     }
 
     h1 {
-        font-size: 1.8em;
+        font-size: 1.8rem;
     }
-
     h2 {
-        font-size: 1.4em;
-    }
-
-    #confirm-order-button {
-        font-size: 1.1em;
+        font-size: 1.3rem;
     }
 }
 
+/* Mobile */
 @media (max-width: 480px) {
     body {
-        padding: 5px; /* Prevent content touching edges */
+        padding: 10px;
     }
     .order-confirm-container {
         padding: 15px;
     }
+
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    h2 {
+        font-size: 1.2rem;
+    }
+
     .order-item {
-        flex-direction: column; /* Stack image and info */
-        align-items: flex-start; /* Align items to the left */
+        /* Optional: Stack image above text on very small screens */
+        /* flex-direction: column;
+        align-items: flex-start; */
     }
-
     .order-item-image {
-        margin-right: 0;
-        margin-bottom: 10px;
-        width: 100px; /* Slightly larger image */
-        height: 100px;
+        width: 60px;
+        height: 60px;
     }
 
-    .order-form form div:has(input#magiamgia) {
-       flex-direction: column; /* Stack discount input and button */
-       align-items: stretch; /* Make elements full width */
+    .order-detail .total-price {
+        text-align: left; /* Align totals left */
+        display: flex;
+        justify-content: space-between; /* Space label and value */
+    }
+     .order-detail .total-price span {
+         min-width: auto; /* Remove min-width */
+         margin-left: 0;
+     }
+
+    .order-form input[type="text"],
+    .order-form select,
+    .order-form button {
+        font-size: 0.95rem; /* Slightly smaller font on mobile inputs */
+        padding: 10px;
     }
 
-    .order-form button[name='apply_discount'] {
-        width: 100%; /* Full width button */
-        margin-top: 10px; /* Add space above button */
+     /* Adjust discount input layout */
+    .order-form div:has(input#magiamgia) {
+        flex-direction: column;
+        align-items: stretch;
     }
+     .order-form button[name='apply_discount'] {
+         width: 100%;
+         margin-top: 8px;
+         height: auto; /* Reset height */
+     }
 
-    #confirm-order-button {
+    button[name='confirm_order'] {
         padding: 12px 15px;
+        font-size: 1rem;
     }
+    
 }

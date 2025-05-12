@@ -8,35 +8,17 @@ if (session_status() == PHP_SESSION_NONE) {
 
 $manguoidung = $_SESSION['manguoidung']; // Giả sử đã đăng nhập
 
-// Số đơn hàng mỗi trang
-$ordersPerPage = 3;
-
-// Xác định trang hiện tại
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$offset = ($page - 1) * $ordersPerPage;
-
-// Đếm tổng số đơn hàng của người dùng
-$countQuery = "SELECT COUNT(*) AS total FROM donhang WHERE manguoidung = ?";
-$stmt = $conn->prepare($countQuery);
-$stmt->bind_param("i", $manguoidung);
-$stmt->execute();
-$countResult = $stmt->get_result();
-$totalOrders = $countResult->fetch_assoc()['total'];
-$totalPages = ceil($totalOrders / $ordersPerPage);
-$stmt->close();
-
-// Lấy danh sách đơn hàng của người dùng với phân trang
+// Lấy danh sách tất cả đơn hàng của người dùng
 $sql = "SELECT d.madon, d.ngaydathang, d.tongtien, d.phuongthucthanhtoan, d.trangthai, 
                sp.tensanpham, sp.anh, sp.giaban, ctdh.soluong
         FROM donhang d
         JOIN chitietdonhang ctdh ON d.madon = ctdh.madon
         JOIN sanpham sp ON ctdh.masanpham = sp.masanpham
         WHERE d.manguoidung = ?
-        ORDER BY d.ngaydathang DESC
-        LIMIT ? OFFSET ?";
+        ORDER BY d.ngaydathang DESC";
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("iii", $manguoidung, $ordersPerPage, $offset);
+$stmt->bind_param("i", $manguoidung);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -59,31 +41,18 @@ if ($result->num_rows > 0) {
 }
 if (isset($_POST['cancel_order'])) {
     $madon = $_POST['madon'];
-    
-    // Bắt đầu transaction để đảm bảo tính toàn vẹn
-    $conn->begin_transaction();
+    $lydohuy = $_POST['lydohuy'];
 
     try {
-        // Xóa chi tiết đơn hàng trước
-        $sqlDeleteChiTietDonHang = "DELETE FROM chitietdonhang WHERE madon = ?";
-        $stmtDeleteChiTiet = $conn->prepare($sqlDeleteChiTietDonHang);
-        $stmtDeleteChiTiet->bind_param("i", $madon);
-        $stmtDeleteChiTiet->execute();
-        $stmtDeleteChiTiet->close();
+        // Cập nhật trạng thái đơn hàng thành "Yêu cầu hủy" và lưu lý do hủy
+        $sqlUpdateTrangThai = "UPDATE donhang SET trangthai = 'Yêu cầu hủy', lydohuy = ? WHERE madon = ? AND manguoidung = ?";
+        $stmtUpdateTrangThai = $conn->prepare($sqlUpdateTrangThai);
+        $stmtUpdateTrangThai->bind_param("sii", $lydohuy, $madon, $manguoidung);
+        $stmtUpdateTrangThai->execute();
+        $stmtUpdateTrangThai->close();
 
-        // Sau đó xóa đơn hàng
-        $sqlDeleteDonHang = "DELETE FROM donhang WHERE madon = ? AND manguoidung = ?";
-        $stmtDeleteDonHang = $conn->prepare($sqlDeleteDonHang);
-        $stmtDeleteDonHang->bind_param("ii", $madon, $manguoidung);
-        $stmtDeleteDonHang->execute();
-        $stmtDeleteDonHang->close();
-
-        // Commit nếu mọi thứ thành công
-        $conn->commit();
-        echo "<script>alert('Đơn hàng đã được hủy thành công!'); window.location.href = 'donhang.php';</script>";
+        echo "<script>alert('Yêu cầu hủy đơn hàng đã được gửi!'); window.location.href = 'donhang.php';</script>";
     } catch (Exception $e) {
-        // Rollback nếu có lỗi
-        $conn->rollback();
         echo "Có lỗi xảy ra: " . $e->getMessage();
     }
 }
@@ -99,123 +68,66 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh sách đơn hàng</title>
+    <link rel="stylesheet" href="donhang.css?v=<?php echo time(); ?>">
+    <script>
+        function showCancelPopup(madon) {
+            const popup = document.getElementById("cancel-popup");
+            const madonInput = document.getElementById("popup-madon");
+            madonInput.value = madon;
+            popup.style.display = "block";
+        }
+
+        function closeCancelPopup() {
+            const popup = document.getElementById("cancel-popup");
+            popup.style.display = "none";
+        }
+    </script>
     <style>
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: #f5f7fa;
-        margin: 0;
-        padding: 0px;
-    }
+        #cancel-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
 
-    h2 {
-        text-align: center;
-        margin-bottom: 30px;
-        color: #333;
-    }
+        #cancel-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
 
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 24px;
-        justify-content: center;
-    }
-
-    .order-card {
-        background: #ffffff;
-        border-radius: 12px;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        width: 360px;
-        transition: transform 0.3s ease;
-    }
-
-    .order-card:hover {
-        transform: translateY(-5px);
-    }
-
-    .order-card h3 {
-        color: #007bff;
-        margin-bottom: 10px;
-        font-size: 20px;
-    }
-
-    .order-card p {
-        font-size: 14px;
-        margin: 4px 0;
-        color: #555;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 15px;
-    }
-
-    th,
-    td {
-        border: 1px solid #e0e0e0;
-        padding: 8px;
-        text-align: center;
-        font-size: 14px;
-    }
-
-    th {
-        background-color: #f0f4f8;
-        color: #333;
-    }
-
-    img {
-        width: 70px;
-        height: 70px;
-        object-fit: cover;
-        border-radius: 8px;
-    }
-
-    form {
-        margin-top: 12px;
-        display: flex;
-        justify-content: center;
-    }
-
-    button[type="submit"] {
-        background-color: #dc3545;
-        color: white;
-        padding: 8px 14px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: bold;
-        transition: background-color 0.3s ease;
-    }
-
-    button[type="submit"]:hover {
-        background-color: #c82333;
-    }
-
-    .pagination {
-        text-align: center;
-        margin-top: 30px;
-    }
-
-    .pagination a {
-        padding: 10px 18px;
-        margin: 0 5px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 6px;
-        font-weight: bold;
-        transition: background-color 0.3s ease;
-    }
-
-    .pagination a:hover {
-        background-color: #0056b3;
-    }
+        .popup-close {
+            cursor: pointer;
+            color: red;
+            float: right;
+            font-size: 20px;
+        }
     </style>
-
 </head>
 
 <body>
+    <div id="cancel-popup-overlay" onclick="closeCancelPopup()"></div>
+    <div id="cancel-popup">
+        <span class="popup-close" onclick="closeCancelPopup()">×</span>
+        <h3>Nhập lý do hủy đơn hàng</h3>
+        <form action="" method="POST">
+            <input type="hidden" name="madon" id="popup-madon">
+            <textarea name="lydohuy" required placeholder="Nhập lý do hủy..." style="width: 100%; height: 100px;"></textarea>
+            <br>
+            <button type="submit" name="cancel_order">Gửi yêu cầu</button>
+        </form>
+    </div>
+
     <h2 style="text-align: center;">Danh sách đơn hàng</h2>
     <div class="container">
         <?php foreach ($orders as $madon => $order) { ?>
@@ -248,21 +160,14 @@ $conn->close();
                 <?php } ?>
                 <form action="" method="POST">
                     <input type="hidden" name="madon" value="<?php echo $madon; ?>">
-                    <button type="submit" name="cancel_order"
-                        onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này?')">Hủy đơn hàng</button>
+                    <?php if ($order['trangthai'] === 'Yêu cầu hủy') { ?>
+                        <button type="button" disabled>Chờ xác nhận</button>
+                    <?php } else { ?>
+                        <button type="button" onclick="showCancelPopup(<?php echo $madon; ?>)">Hủy đơn hàng</button>
+                    <?php } ?>
                 </form>
-
             </table>
         </div>
-        <?php } ?>
-    </div>
-
-    <div class="pagination">
-        <?php if ($page > 1) { ?>
-        <a href="?page=<?php echo $page - 1; ?>">&laquo; Trang trước</a>
-        <?php } ?>
-        <?php if ($page < $totalPages) { ?>
-        <a href="?page=<?php echo $page + 1; ?>">Trang sau &raquo;</a>
         <?php } ?>
     </div>
 </body>

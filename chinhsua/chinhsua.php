@@ -104,28 +104,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="capnhat.css?v=<?php echo time(); ?>">
-    <title>CChỉnh Sửa Ảnh</title>
-    
+    <title>Chỉnh sửa ảnh</title>
+
 </head>
+
 <body>
-    <div class= edit-page >
-    <h2>Chỉnh Sửa Ảnh </h2>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . "?id=" . $id; ?>" method="post" enctype="multipart/form-data">
-       
-        <div>
-            <label>Ảnh:</label>
-              <div class="drop-area" id="drop-area">
-                 Kéo và thả ảnh vào đây hoặc bấm để chọn
+    <div class=edit-page>
+        <h2>Chỉnh sửa ảnh </h2>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . "?id=" . $id; ?>" method="post"
+            enctype="multipart/form-data">
+
+            <div>
+                <label>Ảnh:</label>
+                <div class="drop-area" id="drop-area">
+                    Kéo và thả ảnh vào đây hoặc bấm để chọn
                 </div>
                 <input type="file" id="duongdan" name="duongdan[]" multiple style="display: none;">
-              <input type="hidden" name="remove_images" id="remove_images">
-               <input type="file" name="new_images[]" id="new_images" multiple style="display:none">
-               <div id="preview">
-                 <?php
+                <input type="hidden" name="remove_images" id="remove_images">
+                <input type="file" name="new_images[]" id="new_images" multiple style="display:none">
+                <div id="preview">
+                    <?php
                    $images = explode(",", $product['duongdan']);
                      foreach ($images as $image) {
                          if (!empty($image)) {
@@ -136,17 +139,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                          }
                       }
                   ?>
-                 </div>
-        </div>
+                </div>
+            </div>
 
-        <button type="submit">Cập Nhật</button>
-        <button type="button" onclick="window.location.href='../index.php'">Hủy</button>
-    </form>
+            <button type="submit">Cập Nhật</button>
+            <button type="button" onclick="window.location.href='../index.php'">Hủy</button>
+        </form>
     </div>
     <script src="chinhsua.js">
-        
+
     </script>
 </body>
+
 </html>
 <?php
 $conn->close();

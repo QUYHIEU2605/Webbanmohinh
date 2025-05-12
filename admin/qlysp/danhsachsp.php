@@ -79,11 +79,26 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
 // --- Include menu SAU KHI xử lý logic GET/POST ---
 include '../../admin/menu/menu.php';
 
-// Truy vấn danh sách sản phẩm (sau khi đã xử lý xóa nếu có)
+// --- Pagination Logic ---
+$items_per_page = 5; // Số sản phẩm mỗi trang
+$current_page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+$current_page = max($current_page, 1); // Không cho phép trang nhỏ hơn 1
+
+// Đếm tổng số sản phẩm
+$total_items_query = "SELECT COUNT(*) AS total FROM sanpham";
+$total_items_result = $conn->query($total_items_query);
+$total_items = $total_items_result->fetch_assoc()['total'] ?? 0;
+
+// Tính toán số trang
+$total_pages = ceil($total_items / $items_per_page);
+$offset = ($current_page - 1) * $items_per_page;
+
+// Truy vấn danh sách sản phẩm với giới hạn
 $sql = "SELECT sp.*, nsx.tenhang
         FROM sanpham sp
         LEFT JOIN nhasanxuat nsx ON sp.masx = nsx.masx
-        ORDER BY sp.masanpham DESC"; // Sắp xếp theo ID giảm dần chẳng hạn
+        ORDER BY sp.masanpham DESC
+        LIMIT $offset, $items_per_page";
 $result = $conn->query($sql);
 ?>
 
@@ -95,18 +110,18 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Link tới CSS -->
     <link rel="stylesheet" href="dssp.css?v=<?php echo time(); ?>">
-    <title>Danh Sách Sản Phẩm</title>
+    <title>Danh sách sản phẩm</title>
 </head>
 
 <body>
     <div class="main-content">
         <!-- Container cho nội dung chính -->
-        <h2>Danh Sách Sản Phẩm</h2>
+        <h2>Danh sách sản phẩm</h2>
 
         <div class="action-bar">
             <!-- Container cho nút Thêm -->
             <button class="btn btn-add" onclick="window.location.href='themsanpham.php'">
-                + Thêm Sản Phẩm
+                + Thêm sản phẩm
                 <!-- Sử dụng mã HTML cho dấu cộng -->
             </button>
         </div>
@@ -117,16 +132,16 @@ $result = $conn->query($sql);
                     <tr>
                         <th>ID</th>
                         <th>Ảnh</th>
-                        <th>Tên Sản Phẩm</th>
+                        <th>Tên sản phẩm</th>
                         <th>Loại</th>
                         <th>Tình trạng</th>
                         <th>Hãng</th>
                         <th>SL</th>
-                        <th>Giá Bán</th>
-                        <th>Giá Nhập</th>
-                        <th>Giảm Giá</th>
-                        <th>Miêu Tả</th>
-                        <th>Hành Động</th>
+                        <th>Giá bán</th>
+                        <th>Giá nhập</th>
+                        <th>Giảm giá</th>
+                        <th>Miêu tả</th>
+                        <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -195,6 +210,21 @@ $result = $conn->query($sql);
                 </tbody>
             </table>
         </div> <!-- End .table-responsive -->
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <?php if ($current_page > 1): ?>
+            <a href="?page=<?php echo $current_page - 1; ?>" class="page-link">« Trước</a>
+            <?php endif; ?>
+            <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+            <a href="?page=<?php echo $i; ?>" class="page-link <?php echo $i === $current_page ? 'active' : ''; ?>">
+                <?php echo $i; ?>
+            </a>
+            <?php endfor; ?>
+            <?php if ($current_page < $total_pages): ?>
+            <a href="?page=<?php echo $current_page + 1; ?>" class="page-link">Tiếp »</a>
+            <?php endif; ?>
+        </div> <!-- End .pagination -->
     </div> <!-- End .main-content -->
 
     <!-- Image Popup -->

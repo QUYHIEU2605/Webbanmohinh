@@ -1,0 +1,121 @@
+/* CSS cho trang hồ sơ người dùng */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: #3c83ff;
+    margin: 30px 0 10px;
+}
+
+h2 {
+    color: #2164d7;
+    margin-bottom: 20px;
+    border-left: 5px solid #128cff;
+    padding-left: 10px;
+    font-size: 22px;
+}
+
+.profile-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 30px 20px;
+    max-width: 1000px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.profile-info, .password-change {
+    flex: 1 1 45%;
+    background-color: #fefefe;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    padding: 25px;
+}
+
+.profile-info form div,
+.password-change form div {
+    margin-bottom: 15px;
+}
+
+.profile-info label,
+.password-change label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #444;
+}
+
+.profile-info input,
+.password-change input,
+.profile-info textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+.profile-info textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+button[type="submit"] {
+    background-color: #1660ff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #00aeff;
+}
+
+p {
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+/* Thông báo */
+p[style*="color: green"] {
+    background-color: #e9f9ec;
+    border-left: 5px solid #2ecc71;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+p[style*="color: red"] {
+    background-color: #fdecea;
+    border-left: 5px solid #e74c3c;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .profile-container {
+        flex-direction: column;
+    }
+
+    .profile-info,
+    .password-change {
+        width: 100%;
+    }
+}

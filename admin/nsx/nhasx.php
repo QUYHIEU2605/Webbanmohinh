@@ -79,24 +79,26 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="nhasx.css?v=<?php echo time(); ?>">
-    <title>Danh Sách Nhà Sản Xuất</title>
+    <title>Danh sách nhà sản xuất</title>
 
 </head>
+
 <body>
-    <h2>Danh Sách Nhà Sản Xuất</h2>
+    <h2>Danh sách nhà sản xuất</h2>
     <button class="btn-add" id="btn-add">Thêm Nhà Sản Xuất</button>
     <table border="1" cellpadding="10" cellspacing="0">
         <thead>
             <tr>
                 <th>Mã NSX</th>
-                <th>Tên Hãng</th>
-                <th>Số Điện Thoại</th>
-                <th>Địa Chỉ</th>
-                <th>Hành Động</th>
+                <th>Tên hãng</th>
+                <th>Số điện thoại</th>
+                <th>Địa chỉ</th>
+                <th>Hành động</th>
             </tr>
         </thead>
         <tbody>
@@ -150,37 +152,38 @@ $conn->close();
     </div>
 
     <script>
-        const btnAdd = document.getElementById('btn-add');
-        const popupAdd = document.getElementById('popup-add');
-        const popupOverlay = document.getElementById('popup-overlay');
-        const btnCloseAdd = document.getElementById('btn-close-add');
-        const popupEdit = document.getElementById('popup-edit');
-        const btnCloseEdit = document.getElementById('btn-close-edit');
+    const btnAdd = document.getElementById('btn-add');
+    const popupAdd = document.getElementById('popup-add');
+    const popupOverlay = document.getElementById('popup-overlay');
+    const btnCloseAdd = document.getElementById('btn-close-add');
+    const popupEdit = document.getElementById('popup-edit');
+    const btnCloseEdit = document.getElementById('btn-close-edit');
 
-        btnAdd.addEventListener('click', () => {
-            popupAdd.style.display = 'block';
-            popupOverlay.style.display = 'block';
-        });
+    btnAdd.addEventListener('click', () => {
+        popupAdd.style.display = 'block';
+        popupOverlay.style.display = 'block';
+    });
 
-        btnCloseAdd.addEventListener('click', closePopup);
-        btnCloseEdit.addEventListener('click', closePopup);
-        popupOverlay.addEventListener('click', closePopup);
+    btnCloseAdd.addEventListener('click', closePopup);
+    btnCloseEdit.addEventListener('click', closePopup);
+    popupOverlay.addEventListener('click', closePopup);
 
-        function closePopup() {
-            popupAdd.style.display = 'none';
-            popupEdit.style.display = 'none';
-            popupOverlay.style.display = 'none';
-        }
+    function closePopup() {
+        popupAdd.style.display = 'none';
+        popupEdit.style.display = 'none';
+        popupOverlay.style.display = 'none';
+    }
 
-        function openEditPopup(data) {
-            document.getElementById('edit-masx').value = data.masx;
-            document.getElementById('edit-tenhang').value = data.tenhang;
-            document.getElementById('edit-sdthang').value = data.sdthang;
-            document.getElementById('edit-diachi').value = data.diachi;
+    function openEditPopup(data) {
+        document.getElementById('edit-masx').value = data.masx;
+        document.getElementById('edit-tenhang').value = data.tenhang;
+        document.getElementById('edit-sdthang').value = data.sdthang;
+        document.getElementById('edit-diachi').value = data.diachi;
 
-            popupEdit.style.display = 'block';
-            popupOverlay.style.display = 'block';
-        }
+        popupEdit.style.display = 'block';
+        popupOverlay.style.display = 'block';
+    }
     </script>
 </body>
+
 </html>
